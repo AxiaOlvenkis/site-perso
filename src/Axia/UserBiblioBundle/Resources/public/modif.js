@@ -3,7 +3,7 @@ $(function(){
     var button = $("button.moinsPlus");
     function modif_nb() {
         var $this   = $(this);
-        var id = $this.attr('id');
+        id = $this.attr('id');
         var action = $this.children('span').attr('id');
         modifier_nb(id, action);
     }
@@ -19,7 +19,7 @@ function modifier_nb(id, action)
         data: DATA,
         cache: false,
         success: function (data) {
-            $("#number").html(data);
+            $("." + id + " .number").html(data);
         }
     });
     return false;

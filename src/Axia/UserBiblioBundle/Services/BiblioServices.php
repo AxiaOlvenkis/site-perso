@@ -2,6 +2,9 @@
 
 namespace Axia\UserBiblioBundle\Services;
 
+use Axia\BiblioBundle\Entity\Element;
+use Axia\UserBiblioBundle\Entity\Biblio;
+use Axia\UserBiblioBundle\Twig\ElementFilter;
 use Doctrine\ORM\EntityManager;
 use Generics\AdminBundle\Services\DAOServices;
 use Generics\UserBundle\Services\UserServices;
@@ -61,6 +64,11 @@ class BiblioServices implements DAOServices
         {
             $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findEnCours($type, $this->user);
         }
+        elseif($filtre == 'en_cours_a_voir')
+        {
+            $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findEnCours($type, $this->user);
+            $liste = $this->array_a_voir($liste);
+        }
         elseif($filtre == 'saison')
         {
             $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findSaison($type, $this->user);
@@ -99,6 +107,63 @@ class BiblioServices implements DAOServices
         }
 
         return $liste;
+    }
+
+    public function array_a_voir($array)
+    {
+        foreach ($array as $biblio)
+        {
+            $nb_vu = $biblio->getDernierVu();
+            $nb_sortie = $this->has_a_voir($biblio);
+
+            if($nb_vu >= $nb_sortie)
+            {
+                unset($array[$biblio]);
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * @param Biblio $element
+     * @return Element
+     */
+    public function get_item($element)
+    {
+        $type = $element->getType();
+        $getter = 'get'.$type;
+
+        return $element->$getter();
+    }
+
+    /**
+     * @param Biblio $biblio
+     * @return int
+     */
+    public function has_a_voir($biblio)
+    {
+        $element = $this->get_item($biblio);
+
+        if($element->getFini()):
+            $nb_t = $element->getNbEpisode();
+        else:
+            $date = $element->getDateParution()->format('Y/m/d');
+            $nb_t = $this->ep_by_date($date) + 1;
+        endif;
+
+        return $nb_t;
+    }
+
+    public function ep_by_date($date)
+    {
+        $date_ajd = new \DateTime();
+        $date_ajd->format('Y/m/d');
+        $date_deb = new \DateTime($date);
+
+        /* on fait les calcules pour retourner le nb d'episode */
+        $diff = $date_deb->diff($date_ajd);
+        $nb_ep = $diff->days / 7;
+        return floor($nb_ep);
     }
 
     public function save($element)

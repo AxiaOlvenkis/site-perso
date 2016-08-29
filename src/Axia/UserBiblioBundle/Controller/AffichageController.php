@@ -19,8 +19,8 @@ class AffichageController extends Controller
     public function accueilAction()
     {
         $booksOfTheMonth = $this->get('biblio.services')->repoPerso('Livre', 'SortieduMois');
-        $animes = $this->get('biblio.services')->repoPerso('Anime', 'en_cours');
-        $series = $this->get('biblio.services')->repoPerso('Serie', 'en_cours');
+        $animes = $this->get('biblio.services')->repoPerso('Anime', 'en_cours_a_voir');
+        $series = $this->get('biblio.services')->repoPerso('Serie', 'en_cours_a_voir');
         $films = $this->get('biblio.services')->repoPerso('Film', 'a_l_affiche');
         $booksToRead = $this->get('biblio.services')->repoPerso('Livre', 'a_voir');
         return $this->render('AxiaUserBiblioBundle:Biblio:accueil.html.twig', array(

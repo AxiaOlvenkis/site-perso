@@ -11,17 +11,17 @@
             </p>
             <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
             <p>Status : {{ element|getStatus }}</p>
-            <p>
+            <p class="{{ biblio.id }}">
                 {% if is_granted("ROLE_ADMIN") %}
                     <button class="moinsPlus" id="{{ biblio.id }}">
                         <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
                     </button>
-                    <span id="number">{{ biblio.dernierVu }} </span> / {{ element.nbEpisode }}
+                    <span class="number">{{ biblio.dernierVu }} </span> / {{ element.nbEpisode }}
                     <button class="moinsPlus" id="{{ biblio.id }}">
                         <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
                     </button>
                 {% else %}
-                    <span id="number">{{ biblio.dernierVu }} </span> / {{ biblio|has_a_voir }}
+                    <span class="number">{{ biblio.dernierVu }} </span> / {{ biblio|has_a_voir }}
                 {% endif %}
             </p>
             <p>({{ element.nbEpisode }} Episodes prévus )</p>

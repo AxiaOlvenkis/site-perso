@@ -31,10 +31,7 @@ class ElementFilter extends \Twig_Extension
      */
     public function get_item($element)
     {
-        $type = $element->getType();
-        $getter = 'get'.$type;
-
-        return $element->$getter();
+        return $this->biblioServices->get_item($element);
     }
 
     /**
@@ -43,28 +40,7 @@ class ElementFilter extends \Twig_Extension
      */
     public function has_a_voir($biblio)
     {
-        $element = $this->get_item($biblio);
-
-        if($element->getFini()):
-            $nb_t = $element->getNbEpisode();
-        else:
-            $date = $element->getDateParution()->format('Y/m/d');
-            $nb_t = $this->ep_by_date($date) + 1;
-        endif;
-
-        return $nb_t;
-    }
-
-    public function ep_by_date($date)
-    {
-        $date_ajd = new \DateTime();
-        $date_ajd->format('Y/m/d');
-        $date_deb = new \DateTime($date);
-
-        /* on fait les calcules pour retourner le nb d'episode */
-        $diff = $date_deb->diff($date_ajd);
-        $nb_ep = $diff->days / 7;
-        return floor($nb_ep);
+        return $this->biblioServices->has_a_voir($biblio);
     }
 
     public function getFilters()

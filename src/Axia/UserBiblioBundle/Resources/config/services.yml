@@ -9,7 +9,7 @@ services:
     element.filter:
         class:     Axia\UserBiblioBundle\Twig\ElementFilter
         arguments:
-            userService: "@biblio.services"
+            biblioService: "@biblio.services"
         tags:
             -  { name: twig.extension }
 

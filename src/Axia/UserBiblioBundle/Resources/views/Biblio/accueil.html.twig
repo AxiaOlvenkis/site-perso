@@ -35,54 +35,55 @@
     <div id="animes" class="tab-pane fade">
         <div class="lst_a_voir">
             <h3>Animés à Voir</h3>
-            {% for anime in Animes %}
-                <div class="element">
+            <table class="table table-responsive table-bordered table-striped">
+                {% for anime in Animes %}
                     {% set element = anime|get_item %}
-                    <p>
-                        {{ element.titre }}
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <button class="moinsPlus" id="{{ anime.id }}">
-                                <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
-                            </button>
-                            <span id="number">{{ anime.dernierVu }} </span> / {{ anime|has_a_voir }}
-                            <button class="moinsPlus" id="{{ anime.id }}">
-                                <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
-                            </button>
-                        {% else %}
-                            <span id="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisode }}
-                        {% endif %}
-                    </p>
-                    <p>({{ element.nbEpisode }} Episodes prévus )</p>
-                </div>
-                <hr />
-            {% endfor %}
+                    <tr class="{{ anime.id }}">
+                        <td>{{ element.titre }}</td>
+                        <td>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <button class="moinsPlus" id="{{ anime.id }}">
+                                    <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
+                                </button>
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ anime|has_a_voir }}
+                                <button class="moinsPlus" id="{{ anime.id }}">
+                                    <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
+                                </button>
+                            {% else %}
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisode }}
+                            {% endif %}
+                        </td>
+                        <td>{{ element.nbEpisode }} Episodes prévus</td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
     <div id="series" class="tab-pane fade">
         <div class="lst_a_voir">
             <h3>Séries à Voir</h3>
-            {% for serie in Series %}
-                <div class="element">
+            <table class="table table-responsive table-bordered table-striped">
+                {% for serie in Series %}
                     {% set element = serie|get_item %}
-                    <p>
-                        {{ element.titre }}
-                        {% if is_granted("ROLE_ADMIN") %}
-                            <button class="moinsPlus" id="{{ serie.id }}">
-                                <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
-                            </button>
-                            <span id="number">{{ serie.dernierVu }} </span> / {{ serie|has_a_voir }}
-                            <button class="moinsPlus" id="{{ serie.id }}">
-                                <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
-                            </button>
-                        {% else %}
-                            <span id="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisode }}
-                        {% endif %}
-                    </p>
-                    <p>({{ element.nbEpisode }} Episodes prévus )</p>
-                </div>
-                <hr />
-            {% endfor %}
-
+                    <tr class="{{ serie.id }}">
+                        <td>{{ element.titre }}</td>
+                        <td>
+                            {% if is_granted("ROLE_ADMIN") %}
+                                <button class="moinsPlus" id="{{ serie.id }}">
+                                    <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
+                                </button>
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ serie|has_a_voir }}
+                                <button class="moinsPlus" id="{{ serie.id }}">
+                                    <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
+                                </button>
+                            {% else %}
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisode }}
+                            {% endif %}
+                        </td>
+                        <td>{{ element.nbEpisode }} Episodes prévus</td>
+                    </tr>
+                {% endfor %}
+            </table>
         </div>
     </div>
     <div id="films" class="tab-pane fade">
