@@ -1,0 +1,12 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: db2083.1and1.fr
+    database_port: null
+    database_name: db308522181
+    database_user: dbo308522181
+    database_password: lattiatia32
+    mailer_transport: mail
+    mailer_host: auth.smtp.1and1.fr
+    mailer_user: contact@benoit-guelin.fr
+    mailer_password: C*0391719
+    secret: 037f1abb504a79916a91bbb2c45ae30dd47c4670

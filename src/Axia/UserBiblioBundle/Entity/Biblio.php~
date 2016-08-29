@@ -1,0 +1,333 @@
+<?php
+
+namespace Axia\UserBiblioBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Biblio
+ *
+ * @ORM\Table(name="user_biblio")
+ * @ORM\Entity(repositoryClass="Axia\UserBiblioBundle\Repository\BiblioRepository")
+ */
+class Biblio
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="note", type="integer")
+     */
+    private $note;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="vu", type="boolean")
+     */
+    private $vu;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="possede", type="boolean")
+     */
+    private $possede;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="dernier_vu", type="integer")
+     */
+    private $dernierVu;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="valide", type="integer")
+     */
+    private $valide;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
+     */
+    private $type;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Generics\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Livre")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $livre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Manga")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $manga;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Comics")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $comics;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\BD")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $bd;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Jeu")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $jeu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Film")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $film;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Serie")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $serie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Anime")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $anime;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dernierVu = 0;
+        $this->note = 0;
+        $this->possede = 0;
+        $this->valide = 0;
+        $this->vu = 0;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set note
+     *
+     * @param integer $note
+     *
+     * @return Biblio
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return integer
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+
+    /**
+     * Set vu
+     *
+     * @param boolean $vu
+     *
+     * @return Biblio
+     */
+    public function setVu($vu)
+    {
+        $this->vu = $vu;
+
+        return $this;
+    }
+
+    /**
+     * Get vu
+     *
+     * @return boolean
+     */
+    public function getVu()
+    {
+        return $this->vu;
+    }
+
+    /**
+     * Set possede
+     *
+     * @param boolean $possede
+     *
+     * @return Biblio
+     */
+    public function setPossede($possede)
+    {
+        $this->possede = $possede;
+
+        return $this;
+    }
+
+    /**
+     * Get possede
+     *
+     * @return boolean
+     */
+    public function getPossede()
+    {
+        return $this->possede;
+    }
+
+    /**
+     * Set dernierVu
+     *
+     * @param integer $dernierVu
+     *
+     * @return Biblio
+     */
+    public function setDernierVu($dernierVu)
+    {
+        $this->dernierVu = $dernierVu;
+
+        return $this;
+    }
+
+    /**
+     * Get dernierVu
+     *
+     * @return integer
+     */
+    public function getDernierVu()
+    {
+        return $this->dernierVu;
+    }
+
+    /**
+     * Set valide
+     *
+     * @param integer $valide
+     *
+     * @return Biblio
+     */
+    public function setValide($valide)
+    {
+        $this->valide = $valide;
+
+        return $this;
+    }
+
+    /**
+     * Get valide
+     *
+     * @return integer
+     */
+    public function getValide()
+    {
+        return $this->valide;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Generics\UserBundle\Entity\User $user
+     *
+     * @return Biblio
+     */
+    public function setUser(\Generics\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Generics\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set stringID
+     *
+     * @param string $stringID
+     *
+     * @return Biblio
+     */
+    public function setStringID($stringID)
+    {
+        $this->stringID = $stringID;
+
+        return $this;
+    }
+
+    /**
+     * Get stringID
+     *
+     * @return string
+     */
+    public function getStringID()
+    {
+        return $this->stringID;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Biblio
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+}

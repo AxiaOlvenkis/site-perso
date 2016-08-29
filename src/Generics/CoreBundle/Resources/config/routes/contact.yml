@@ -1,0 +1,15 @@
+core_contact:
+    path:     /contact
+    defaults: { _controller: GenericsCoreBundle:Core:contact}
+
+core_contact_view:
+    path:     /admin/contact
+    defaults: { _controller: GenericsCoreBundle:Core:contact_view}
+
+core_contact_view_message:
+    path:     /admin/contact/{id}
+    defaults: { _controller: GenericsCoreBundle:Core:contact_message}
+
+core_contact_delete:
+    path:     /contact/delete/{id}
+    defaults: { _controller: GenericsCoreBundle:Core:delete_contact}

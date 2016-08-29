@@ -1,0 +1,16 @@
+user:
+    home: Accueil
+    isadmin: Administrateur
+    isguest: Invité
+    isuser: Simple Utilisateur
+    admin: Administration
+    deco: Se deconnecter
+    co: Se connecter
+    register: S'enregistrer
+    pseudo: Nom de l'utilisateur
+    profil: Mon Profil
+    edit: Editer mon profil
+    menu: Menu Utilisateur
+profile.show.username: Pseudonyme
+profile.show.email: Email
+profile.show.vousetes: Vous êtes 

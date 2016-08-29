@@ -1,0 +1,19 @@
+admin_real:
+    path:     /admin/view_realisation
+    defaults: { _controller: GenericsCoreBundle:Realisation:view_real}
+
+admin_add_real:
+    path:     /admin/add_realisation
+    defaults: { _controller: GenericsCoreBundle:Realisation:add_real}
+
+admin_edit_real:
+    path:     /admin/edit_realisation/{id}
+    defaults: { _controller: GenericsCoreBundle:Realisation:edit_real}
+
+admin_delete_real:
+    path:     /admin/delete_realisation/{id}
+    defaults: { _controller: GenericsCoreBundle:Realisation:delete_real}
+
+core_real:
+    path:     /realisation
+    defaults: { _controller: GenericsCoreBundle:Realisation:realisation}

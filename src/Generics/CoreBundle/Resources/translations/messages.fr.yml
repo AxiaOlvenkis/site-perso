@@ -1,0 +1,59 @@
+core.home: Accueil
+error404: La page que vous avez demandé n'existe pas
+contact.titre.ajout : Me contacter
+contact.titre.delete : Supprimer un message
+contact.save : Envoyer
+contact.message: Si vous souhaitez être recontacté, pensez à laisser vos coordonnées, soit dans le champ email prevu à cet effet, soit dans le corps du message
+page.titre:
+    add: Ajouter une page
+    edit: Modifier une page
+    delete: Supprimer une page
+page.nom: Nom de la page
+page.id: Identifiant de la page
+admin:
+    retour: Retour au menu Administrateur
+    alert: Mes Alertes
+    alert.delete: Supprimer une alerte
+    gestion:
+        site: Gestion du site
+        pages: Gestion des pages
+        real: Gestion des Réalisations
+        contact: Messages reçus (formulaire contact)
+        utilisateur: Gestion des Utilisateurs
+        mesutilisateurs: Utilisateurs
+        blog: Gestion du Blog
+        articles: Articles
+        tags: Gestions des Tags
+        biblio: Gestion de la Bibliothéque
+        type: Gestion des Types
+        auteur: Gestion des auteurs
+        editeur: Gestion des Editeurs
+        collection: Gestion des Collections
+        theme: Gestion des Themes
+    message:
+        nom: Nom
+        sujet: Sujet
+        voir: Voir le Message
+        delete: Supprimer le Message
+        retour: Retour à la liste des Messages
+realisation.acces: Acceder à la réalisation
+realisation.titre: Titre de la réalisation
+realisation.lien: Lien de la réalisation
+real.titre:
+    add: Ajouter une réalisation
+    edit: Editer une réalisation
+    delete: Supprimer une réalisation
+site.titre: Développeur Web
+menu:
+    qui: Qui-suis-je ?
+    realisation: Réalisations
+    contact: Contact
+    biblio: Bibliothéque
+    blog: Blog
+    recherche: Recherche
+core.social: Réseaux Sociaux
+footer.legal: Mentions Légales
+theme.titre:
+    add: Ajouter un theme
+    edit: Modifier le theme
+    delete: Supprimer le theme

@@ -1,0 +1,54 @@
+<div>
+    {% set i = 0 %}
+    {% for biblio in liste %}
+    {% set element = biblio|get_item %}
+    {% if i == 0 %}
+    <div class="row aff_elements">
+        {% endif %}
+        <div class="col-sm-4 bloc-index text-center">
+            <p class="text-success text-capitalize text-center text-title">
+                <a href="{{ element.fiche }}" target="_blank">{{ element.titre }}</a>
+            </p>
+            <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
+            <p>Status : {{ element|getStatus }}</p>
+            <p>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <button class="moinsPlus" id="{{ biblio.id }}">
+                        <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
+                    </button>
+                    <span id="number">{{ biblio.dernierVu }} </span> / {{ element.nbEpisode }}
+                    <button class="moinsPlus" id="{{ biblio.id }}">
+                        <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
+                    </button>
+                {% else %}
+                    <span id="number">{{ biblio.dernierVu }} </span> / {{ biblio|has_a_voir }}
+                {% endif %}
+            </p>
+            <p>({{ element.nbEpisode }} Episodes prévus )</p>
+            <p class="note">{{ biblio.note|getNote|raw }}</p>
+            <p class="LuPossede" id="{{ biblio.id }}">
+                <b>Vu</b> :
+                <button class="Vu">{{ biblio.vu|getChecked|raw }}</button> |
+                <b>Possede</b> :
+                <button class="Possede">{{ biblio.possede|getChecked|raw }}</button>
+            </p>
+            {% if element.tags is defined and element.tags is not null and element.tags is not empty %}
+                <hr />
+                <p>
+                    {{ element.tags|lst_tags|raw }}
+                </p>
+            {% endif %}
+            {% set i = i + 1 %}
+            {% if i == 3 %}
+        </div>
+        {% set i = 0 %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% if i != 0 %}
+        </div>
+    {% endif %}
+</div>
+{% if is_granted("ROLE_ADMIN") %}
+    <script src="{{ asset('bundles/axiauserbiblio/modif.js') }}"></script>
+{% endif %}

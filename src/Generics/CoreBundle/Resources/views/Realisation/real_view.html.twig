@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<p><a href="{{ path('generics_admin_homepage') }}" class="btn btn-info"><b> &#x2190; </b>{{ 'admin.retour'|trans }}</a>
+		<a href="{{ path('admin_add_real') }}" class="btn btn-success">{{ 'real.titre.add'|trans }}</a></p>
+	<hr />
+	<table style='width:90%' class='tab_admin'>
+		<tr>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">{{ 'realisation.titre'|trans }}</th>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">{{ 'realisation.lien'|trans }}</th>
+		</tr>
+
+		{% for real in listRea %}
+			<tr>
+				<td style="width:35%">{{ real.titre }}</td>
+				<td style="width:35%">{{ real.lien }}</td>
+				<td><a href="{{ path('admin_edit_real', {'id': real.id}) }}">{{ 'real.titre.edit'|trans }}</a></td>
+				<td><a href="{{ path('admin_delete_real', {'id': real.id}) }}">{{ 'real.titre.delete'|trans }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<hr />
+	<p><a href="{{ path('generics_admin_homepage') }}" class="btn btn-info"><b> &#x2190; </b> {{ 'admin.retour'|trans }}</a>
+		<a href="{{ path('admin_add_real') }}" class="btn btn-success">{{ 'real.titre.add'|trans }}</a></p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  {{ 'core.home'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% if is_granted("ROLE_ADMIN") %}
+		<p><a href="{{ path('admin_add_real') }}" class="btn btn-success">{{ 'real.titre.add'|trans }}</a></p>
+		<hr />
+	{% endif %}
+ 	{{ include("GenericsCoreBundle:Realisation:portfolio.html.twig") }}
+	{% if is_granted("ROLE_ADMIN") %}
+		<hr />
+		<p><a href="{{ path('admin_add_real') }}" class="btn btn-success">{{ 'real.titre.add'|trans }}</a></p>
+	{% endif %}
+{% endblock %}

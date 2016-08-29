@@ -1,0 +1,5 @@
+services:
+    user.services:
+        class:    Generics\UserBundle\Services\UserServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"

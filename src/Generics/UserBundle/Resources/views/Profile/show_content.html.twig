@@ -1,0 +1,3 @@
+{% if user.prenom != '' and user.nom != '' %}
+	<p>{{ 'profile.show.vousetes'|trans }}: {{ user.prenom }} {{ user.nom }}</p>
+{% endif %}

@@ -1,0 +1,61 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<div class='corps_article'>
+		<h1 style='text-align:center'>Recherche</h1>
+		{% if listBlog|length > 0 %}
+			<h2>Sur le blog</h2>
+			<ul>
+			{% for article in listBlog %}
+				<li>
+					{% for tag in article.tags %}
+						<span class='label label-success'>{{ tag.libelle }}</span>
+					{% endfor %}
+					<a href="{{ path('blog_view_article', {'id': article.id }) }}">
+						{{ article.titre }} écrit par 
+						{% if article.user.anonyme == 0 %}
+							{{ article.user.username }}
+						{% else %}
+							{{ article.user.prenom }} {{ article.user.nom }}
+						{% endif %}
+					</a>
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		{% if listBiblio|length > 0 %}
+			<h2>Dans la Bibliotheque</h2>
+			<table class='tab_biblio table table-striped table-condensed'>
+				<thead>
+					<tr>
+						<th>Nom de l'élément</th>
+						<th>Possede</th>
+						<th>Fiche</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for element in listBiblio %}
+					<tr>
+						<td><span class='label label-primary'>{{ element.type.libelle }}</span> {{ element.nom }}</td>
+						<td>
+							{% if element.possede == 1 %}
+								<i class="fa fa-check-square-o"></i>
+							{% else %}
+								<i class="fa fa-square-o"></i>
+							{% endif %}
+						</td>
+						<td>
+							{% if element.fiche != '' %}
+								<a target='_blank' href="{{ element.fiche }}" style="color:black"><i class="fa fa-share"></i></a>
+							{% endif %}
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+		{% if(listBlog|length == 0)and(listBiblio|length == 0) %}
+			<p>La recherche n'a rien donné</p>
+		{% endif %}
+	</div>
+{% endblock %}

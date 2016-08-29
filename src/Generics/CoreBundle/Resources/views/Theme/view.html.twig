@@ -1,0 +1,29 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<p><a href="{{ path('core_admin') }}" class="btn btn-info"><b> &#x2190; </b>{{ 'admin.retour'|trans }}</a>
+		<a href="{{ path('admin_add_theme') }}" class="btn btn-success">{{ 'theme.titre.add'|trans }}</a></p>
+	<hr />
+	<table style='width:90%'>
+		<tr>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">Nom</th>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">Description</th>
+		</tr>
+
+		{% for theme in listTheme %}
+			<tr>
+				<td style="width:25%">{{ theme.nom }}</td>
+				<td style="width:25%">{{ theme.description }}</td>
+				<td><a href="{{ path('admin_edit_theme', {'id': theme.id}) }}">{{ 'theme.titre.edit'|trans }}</a></td>
+				<td><a href="{{ path('admin_delete_theme', {'id': theme.id}) }}">{{ 'theme.titre.delete'|trans }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<hr />
+	<p><a href="{{ path('core_admin') }}" class="btn btn-info"><b> &#x2190; </b>{{ 'admin.retour'|trans }}</a>
+		<a href="{{ path('admin_add_theme') }}" class="btn btn-success">{{ 'theme.titre.add'|trans }}</a></p>
+{% endblock %}

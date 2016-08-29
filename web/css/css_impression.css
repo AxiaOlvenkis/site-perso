@@ -1,0 +1,39 @@
+﻿.entete
+{
+	display:none;
+}
+
+.menu_gauche
+{
+	display:none;
+}
+
+.menu_biblio
+{
+	display:none;
+}
+
+.footer
+{
+	display:none;
+}
+
+.le_corps
+{
+	font-size:7pt;
+}
+
+.le_corps p
+{
+	margin:3px;
+}
+
+hr
+{
+	display:none;
+}
+
+.fini
+{
+	color:red;
+}

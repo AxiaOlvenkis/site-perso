@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<p><a href="{{ path('core_contact_view') }}" class="btn btn-info"><b> &#x2190; </b> {{ 'admin.message.retour'|trans }}</a>
+		<a href="{{ path('core_contact_delete', {'id': message.id}) }}" class="btn btn-danger">{{ 'admin.message.delete'|trans }}</a></p>
+	<hr />
+	<p>De {{ message.nom }}</p>
+	<p><i><u>Sujet :</u></i> {{ message.sujet }}<p>
+	<p>{{ message.texte|raw }}</p>
+	<hr />
+	<p><a href="{{ path('core_contact_view') }}" class="btn btn-info"><b> &#x2190; </b> {{ 'admin.message.retour'|trans }}</a>
+		<a href="{{ path('core_contact_delete', {'id': message.id}) }}" class="btn btn-danger">{{ 'admin.message.delete'|trans }}</a></p>
+{% endblock %}

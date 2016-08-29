@@ -2,28 +2,61 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.ico') }}">
     {{ sonata_seo_title() }}
+    {{ sonata_seo_metadatas() }}
+    {{ sonata_seo_head_attributes() }}
+    {{ sonata_seo_link_canonical() }}
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
-        <script src="{{ asset('js/jquery.js') }}"></script>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     {% endblock %}
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+  </head>
 
-<body>
-{{ render(controller("StarterCoreBundle:Core:menu")) }}
-<div class="site container">
-        {# On affiche tous les messages flash dont le nom est « info » #}
-        {% for message in app.session.flashbag.get('info') %}
-            <p style='color:red'><b><i>{{ message }}</i></b></p>
-        {% endfor %}
-    {% block body %}
-    {% endblock %}
-</div>
-</body>
+    <body>
+      <div class="container">
+        <header class="row entete">
+          <div class="col-md-4"><img src="{{ asset('images/squirrel_resize.png') }}" alt="Logo"></div>
+          <div class="col-md-8">
+              {% include "GenericsCoreBundle:Core:menu.html.twig" %}
+          </div>
+        </header>
+        <div class="row col_gauche"> <!-- corps du site -->
+            <div class="col-md-2 menu_gauche panel panel-primary">
+              <div class="menu-lang">
+                  {% if app.request.locale != 'fr' %}
+                     <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}"><img src="{{ asset('images/flag_fr.png') }}" alt="Drapeau Français"></a>
+                  {% elseif app.request.locale != 'en' %}
+                     <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}"><img src="{{ asset('images/flag_en.png') }}" alt="Drapeau Anglais"></a>
+                  {% endif %}
+              </div>
+              {{ render(controller("GenericsUserBundle:View:user_menu")) }}
+              {{ render(controller("GenericsCoreBundle:Core:social")) }}
+            </div>
+            <div class="col-md-10 le_corps">
+              <p>
+                {# On affiche tous les messages flash dont le nom est « info » #}
+                {% for message in app.session.flashbag.get('info') %}
+                  <p style='color:red'><b><i>{{ message }}</i></b></p>
+                {% endfor %}
+              </p>
+              {% block body %}
+              {% endblock %}
+            </div>
+        </div>
+        <div class="row footer">
+              {{ render(controller("GenericsCoreBundle:Core:footer")) }}
+        </div>
+
+      </div>
+  </body>
 </html>

@@ -1,0 +1,7 @@
+generics_admin_homepage:
+    path:     /
+    defaults: { _controller: GenericsAdminBundle:Admin:index }
+
+core_delete_alerte:
+    path:     /alerte/delete/{id}
+    defaults: { _controller: GenericsAdminBundle:Admin:deleteAlert}

@@ -1,0 +1,53 @@
+biblio_homepage:
+    path:     /
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:index }
+
+biblio_parts:
+    path:     /parts
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:parts }
+    options:
+        expose: true
+
+biblio_parts_accueil:
+    path:     /parts/accueil
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:accueil }
+    options:
+        expose: true
+
+biblio_parts_course:
+    path:     /parts/course
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:course }
+    options:
+        expose: true
+
+biblio_parts_liste:
+    path:     /parts/liste
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:liste }
+    options:
+        expose: true
+
+biblio_edition:
+    path:     /administration/edition
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:edition }
+
+biblio_edition_parts:
+    path:     /administration/edition/parts
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:parts }
+    options:
+        expose: true
+
+biblio_update:
+    path:     /administration/edition/update/{link}/{id}
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:update }
+
+biblio_edition_nombre:
+    path:     /administration/edition/nombre
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:editNb }
+    options:
+        expose: true
+
+biblio_edition_bool:
+    path:     /administration/edition/boolean
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:editBool }
+    options:
+        expose: true

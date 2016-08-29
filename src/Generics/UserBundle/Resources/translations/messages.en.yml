@@ -1,0 +1,16 @@
+user:
+    home: Home
+    isadmin: Administrator
+    isguest: Guest
+    isuser: Simple User
+    admin: Administration
+    deco: Log Out
+    co: Log In
+    register: Register
+    pseudo: Username
+    profil: Profile
+    edit: Edit
+    menu: User Menu
+profile.show.username: Pseudonyme
+profile.show.email: Email
+profile.show.vousetes: You are 

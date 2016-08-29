@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {% set element = element|get_item %}
+    <div class="formulaire">
+        <h1>{{ 'admin.edit.biblio'|trans }}</h1>
+        <hr />
+        <h2>{{ element.titre }}</h2>
+        <p><a href="{{ element.fiche }}" target="_blank">Voir la fiche</a></p>
+        <hr />
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.note, "Note :", {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.note) }}
+            <div class="">
+                {{ form_widget(form.note, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+        {% if element|get_type != 'Jeu' %}
+            {% if element|get_type == 'Anime' or element|get_type == 'Serie' or element|get_type == 'Film' %}
+                <div class="form-group">
+                    {{ form_label(form.vu, "Vu :", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.vu) }}
+                    <div class="">
+                        {{ form_widget(form.vu, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="form-group">
+                    {{ form_label(form.vu, "Lu :", {'label_attr': {'class': 'control-label'}}) }}
+                    {{ form_errors(form.vu) }}
+                    <div class="">
+                        {{ form_widget(form.vu, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="form-group">
+            {{ form_label(form.possede, "Possede :", {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.possede) }}
+            <div class="">
+                {{ form_widget(form.possede, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+
+
+    {% if element|get_type != 'Livre' and element|get_type != 'Film' and element|get_type != 'Jeu' %}
+        <div class="form-group">
+            {{ form_label(form.dernierVu, "Dernier Vu :", {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.dernierVu) }}
+            <div class="">
+                {{ form_widget(form.dernierVu, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    {% else %}
+        <div style="display: none">{{ form_widget(form.dernierVu, {'attr': {'class': 'form-control'}}) }}</div>
+    {% endif %}
+
+        <input type="submit" class="btn btn-default">
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,7 +1,0 @@
-core_homepage:
-    path:     /
-    defaults: { _controller: StarterCoreBundle:Core:index }
-
-core_menu:
-    path:     /menu
-    defaults: { _controller: StarterCoreBundle:Core:menu }

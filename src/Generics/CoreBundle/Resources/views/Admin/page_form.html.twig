@@ -1,0 +1,59 @@
+<script src="{{ asset('js/ckeditor_admin/ckeditor.js') }}" type="text/javascript"></script>
+<div class="well">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {# Les erreurs générales du formulaire. #}
+    {{ form_errors(form) }}
+
+    <div class="form-group">
+      {{ form_label(form.titre, "Titre de la page", {'label_attr': {'class': 'control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="">
+        {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.link, "identifiant de la page", {'label_attr': {'class': 'control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="">
+        {{ form_widget(form.link, {'attr': {'class': 'form-control'}}) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.texte, "Texte", {'label_attr': {'class': 'control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="">
+          {{ form_widget(form.texte, {'attr': {'class': 'pouet'}}) }}
+          <script>
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            var editor = CKEDITOR.replace('page_texte',{
+                                          filebrowserBrowseUrl : 'http://www.benoit-guelin.fr/js/ckeditor_admin/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+                                          filebrowserUploadUrl : 'http://www.benoit-guelin.fr/js/ckeditor_admin/filemanager/dialog.php?type=2&editor=ckeditor&fldr=',
+                                          filebrowserImageBrowseUrl : 'http://www.benoit-guelin.fr/js/ckeditor_admin/filemanager/dialog.php?type=1&editor=ckeditor&fldr='
+                                        });
+          </script>
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ form_label(form.save, "Save", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+      {{ form_errors(form.titre) }}
+      <div class="col-sm-4" id='form_valider'>
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-lg'}}) }}
+      </div>
+    </div>
+
+    {# Génération automatique des champs pas encore écrits.
+     Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+     et tous les champs cachés (type « hidden »). #}
+  {{ form_rest(form) }}
+
+  {# Pour le bouton, pas de label ni d'erreur, on affiche juste le widget #}
+  {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+  
+  {# Fermeture de la balise <form> du formulaire HTML #}
+  {{ form_end(form) }}
+</div>

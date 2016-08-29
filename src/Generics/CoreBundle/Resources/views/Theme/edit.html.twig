@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  {{ 'theme.titre.edit'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <h2>{{ 'theme.titre.edit'|trans }}</h2>
+  {{ include("GenericsCoreBundle:Theme:form.html.twig") }}
+{% endblock %}

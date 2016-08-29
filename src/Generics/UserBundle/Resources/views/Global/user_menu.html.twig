@@ -1,0 +1,28 @@
+ <div class="panel-heading">
+    <h3 class="panel-title"><i class="fa fa-users"></i>{{ 'user.menu'|trans }}</h3>
+</div>
+    <ul class="list-unstyled">
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% if app.user.anonyme == 1 %}
+        <li style='margin-bottom:-15px;'>{{ app.user.username }}</li>
+    {% else %}
+        <li style='margin-bottom:-15px;'>{{ app.user.prenom }} {{ app.user.nom }}</li>
+    {% endif %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="label label-warning">{{ 'user.isadmin'|trans }}</li>
+    {% elseif is_granted("ROLE_GUEST") %}
+        <li class="label label-warning">{{ 'user.isguest'|trans }}</li>
+    {% else %}
+        <li class="label label-warning">{{ 'user.isuser'|trans }}</li>
+    {% endif %}
+    <hr />
+    	{% if is_granted("ROLE_ADMIN") %}
+        	<li><a href="{{ path('generics_admin_homepage')}}" class="btn btn-default btn_user_link">{{ 'user.admin'|trans }}</a></li>
+        {% endif %}
+        <li><a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn_user_link">{{ 'user.profil'|trans }}</a></li>
+        <li><a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn_user_link">{{ 'user.deco'|trans }}</a></li>
+{% else %}
+   		<li><a href="{{ path('fos_user_security_login')}}" class="btn btn-default btn_user_link">{{ 'user.co'|trans }}</a></li>
+    	<li><a href="{{ path('fos_user_registration_register')}}" class="btn btn-default btn_user_link">{{ 'user.register'|trans }}</a></li>
+{% endif %}
+    </ul>

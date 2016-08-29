@@ -1,0 +1,19 @@
+services:
+    biblio.services:
+        class:    Axia\UserBiblioBundle\Services\BiblioServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            userManager: "@security.token_storage"
+            userService: "@user.services"
+
+    element.filter:
+        class:     Axia\UserBiblioBundle\Twig\ElementFilter
+        arguments:
+            userService: "@biblio.services"
+        tags:
+            -  { name: twig.extension }
+
+    liste.filter:
+        class:     Axia\UserBiblioBundle\Twig\ListeFilter
+        tags:
+            -  { name: twig.extension }

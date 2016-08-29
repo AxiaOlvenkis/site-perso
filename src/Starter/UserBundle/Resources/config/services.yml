@@ -1,4 +1,0 @@
-services:
-#    starter_user.example:
-#        class: Starter\UserBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]

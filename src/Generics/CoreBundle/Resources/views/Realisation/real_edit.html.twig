@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  {{ 'real.titre.edit'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <h2>{{ 'real.titre.edit'|trans }}</h2>
+  {{ include("GenericsCoreBundle:Realisation:real_form.html.twig") }}
+{% endblock %}

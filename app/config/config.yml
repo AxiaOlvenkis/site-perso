@@ -2,6 +2,8 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@GenericsCoreBundle/Resources/config/services.yml" }
+    - { resource: "@GenericsUserBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -21,12 +23,13 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
+        #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
-        handler_id:  session.handler.native_file
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
         save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
@@ -61,7 +64,7 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
+    transport: mail
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
@@ -70,18 +73,18 @@ swiftmailer:
 fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
-    user_class:    Starter\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    user_class:    Generics\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
 
 sonata_seo:
     encoding:         UTF-8
     page:
         default: sonata.seo.page.default
-        title:            Mon Starter Symfony
+        title:            Benoît Guelin - Site Perso
         default:          sonata.seo.page.default
         metas:
             name:
-                keywords:             starter symfony
-                description:          Starter Symfony pret à l'Emploi
+                keywords:             developpeur web php symfony bootstrap
+                description:          Site Perso de Benoît Guelin, Developpeur Web Junior Php/Symfony.
                 robots:               index, follow
 
             property:
@@ -91,8 +94,8 @@ sonata_seo:
 
                 # Open Graph information
                 # see http://developers.facebook.com/docs/opengraphprotocol/#types or http://ogp.me/
-                'og:site_name':       Starter Symfony
-                'og:description':     Starter Symfony pret à l'Emploi
+                'og:site_name':       Benoît Guelin - Site Perso
+                'og:description':     Site Perso de Benoît Guelin, Developpeur Web Junior Php/Symfony.
 
             http-equiv:
                 'Content-Type':         text/html; charset=utf-8
@@ -105,3 +108,11 @@ sonata_seo:
             'xmlns':              http://www.w3.org/1999/xhtml
             'xmlns:og':           http://opengraphprotocol.org/schema/
             #'xmlns:fb':           "http://www.facebook.com/2008/fbml"
+
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    orm:
+        default:
+            tree: false
+            timestampable: true # not needed: listeners are not enabled by default
+            sluggable: true

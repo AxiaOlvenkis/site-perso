@@ -1,0 +1,39 @@
+<h1>Benoît Guelin - {{ 'site.titre'|trans }}</h1>
+  <div class="navbar navbar-default menu_haut">
+    <ul class="nav navbar-nav">
+      <li {% if app.request.attributes.get('_route') == 'core_index' %}class="active"{% endif %}>
+        <a href="{{ path('core_index')}}"><i class="fa fa-home" style="font-size:18pt;"></i></a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li {% if app.request.attributes.get('_route') == 'core_page' %}class="active"{% endif %}>
+        <a href="{{ path('core_page', {'intitule': 'qui-suis-je'})}}">{{ 'menu.qui'|trans }}</a>
+      </li>
+      <li {% if app.request.attributes.get('_route') == 'core_real' %}class="active"{% endif %}>
+        <a href="{{ path('core_real')}}">{{ 'menu.realisation'|trans }}</a>
+      </li>
+      <li {% if app.request.attributes.get('_route') == 'core_contact' %}class="active"{% endif %}>
+        <a href="{{ path('core_contact')}}">{{ 'menu.contact'|trans }}</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li {% if app.request.attributes.get('_route') == 'biblio_homepage' or app.request.attributes.get('_route') == 'biblio_liste' %}
+              class="active"
+          {% endif %}>
+        <a href="{{ path('biblio_homepage') }}">{{ 'menu.biblio'|trans }}</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li {% if app.request.attributes.get('_route') == 'blog_homepage' or app.request.attributes.get('_route') == 'blog_view_article' %}
+              class="active"
+          {% endif %}>
+        <a href="">{{ 'menu.blog'|trans }}</a>
+      </li>
+    </ul>
+    <form method="post" class="navbar-form navbar-right inline-form" action="">
+      <div class="form-group">
+        <input name='recherche' id='recherche' type="search" class="input-sm form-control" placeholder="{{ 'menu.recherche'|trans }}">
+        <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,14 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<div class='corps_article'>
+		<h1 style='text-align:center'>{{ page.titre }}</h1>
+		{% if is_granted("ROLE_ADMIN") %}
+			<a href="{{path('admin_edit_page', {'id': page.id})}}" class="btn btn-danger">{{ 'page.titre.edit'|trans }}</a>
+		{% endif %}
+		<hr />
+		<div class='mon_texte'>
+			{{  page.texte|raw }}
+		</div>
+	</div>
+{% endblock %}

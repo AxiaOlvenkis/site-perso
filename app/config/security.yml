@@ -1,20 +1,20 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
+# app/config/security.yml
 security:
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_GUEST:       ROLE_USER
+        ROLE_ADMIN:       ROLE_GUEST
 
     providers:
-        fos_userbundle:
+        main:
             id: fos_user.user_provider.username
-#        main:
-#            id: fos_user.user_provider.username
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
             #entity:
             #    class: UserBundle:User
             #    property: username
 
     encoders:
-        Starter\UserBundle\Entity\User: sha512
+        Generics\UserBundle\Entity\User: sha512
             #algorithm: sha512
             #iterations: 9616
             #encode_as_base64: true
@@ -25,24 +25,44 @@ security:
             security: false
 
         main:
-            pattern: ^/
+            pattern:        ^/
+            anonymous:      true
+            provider:       main
             form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+                login_path: fos_user_security_login
                 check_path: fos_user_security_check
+            # login success redirecting options (read further below)
                 always_use_default_target_path: false
-                default_target_path:            core_homepage
+                default_target_path:            core_index
             logout:
                 path:       fos_user_security_logout
                 target:     fos_user_security_login
-
-            logout:       true
-            anonymous:    true
             remember_me:
                 secret:   '%secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
 
+       # login:
+       #     pattern: ^/login$
+       #     security: false
+
+        ##default:
+        #    pattern:    ^/
+        #    http_basic: ~
+        #    provider: main
+        #    anonymous: true
+
+        #    logout:
+        #        path:   /logout
+       #         target: /
+
     access_control:
         # require ROLE_ADMIN for /admin*
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/administration, roles: ROLE_ADMIN }
+        - { path: ^/%locale%/administration, roles: ROLE_ADMIN }
+        - { path: ^/%locale%/blog/admin, roles: ROLE_ADMIN }
+        - { path: ^/%locale%/bibliotheque/admin, roles: ROLE_ADMIN }
+        - { path: ^/%locale%/user/admin, roles: ROLE_ADMIN }
+        - { path: ^/%locale%/bibliotheque/Anime, roles: ROLE_GUEST }
+        - { path: ^/%locale%/bibliotheque/Serie, roles: ROLE_GUEST }
+        - { path: ^/%locale%/bibliotheque/Film, roles: ROLE_GUEST }

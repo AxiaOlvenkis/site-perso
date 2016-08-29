@@ -1,0 +1,31 @@
+user_menu:
+    path:     /user/menu
+    defaults: { _controller: GenericsUserBundle:View:user_menu }
+
+user_list:
+    path:     /admin/liste
+    defaults: { _controller: GenericsUserBundle:View:user_list }
+
+user_give_role:
+    path:     /admin/role/add/{user}/{role}
+    defaults: { _controller: GenericsUserBundle:View:give_role }
+
+user_remove_role:
+    path:     /admin/role/remove/{user}/{role}
+    defaults: { _controller: GenericsUserBundle:View:remove_role }
+
+user_desactive:
+    path:     /admin/desactive/{user}
+    defaults: { _controller: GenericsUserBundle:View:desactive }
+
+user_active:
+    path:     /admin/active/{user}
+    defaults: { _controller: GenericsUserBundle:View:active }
+
+user_profil_edit:
+    path:     /profil/edit
+    defaults: { _controller: GenericsUserBundle:View:profil_edit }
+
+user_delete:
+    path:     /admin/user/delete/{id}
+    defaults: { _controller: GenericsUserBundle:View:delete_user }

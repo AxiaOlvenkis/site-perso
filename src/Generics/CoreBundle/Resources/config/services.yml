@@ -1,0 +1,21 @@
+services:
+    core.imgformat:
+        class:     Generics\CoreBundle\Twig\mod_img
+        arguments: [%locale%]
+        tags:
+            -  { name: twig.extension }
+
+    page.services:
+        class:    Generics\CoreBundle\Services\PageServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    real.services:
+        class:    Generics\CoreBundle\Services\RealisationServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    config.services:
+        class:    Generics\CoreBundle\Services\ConfigServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"

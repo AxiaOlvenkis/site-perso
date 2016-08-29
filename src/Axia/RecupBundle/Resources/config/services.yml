@@ -1,0 +1,11 @@
+services:
+    recup.services:
+        class:    Axia\RecupBundle\Services\RecupServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            elementService: "@element.services"
+            biblioService: "@biblio.services"
+            tagService: "@tag.services"
+            personneService: "@personne.services"
+            editeurService: "@editeur.services"
+            collectionService: "@collection.services"

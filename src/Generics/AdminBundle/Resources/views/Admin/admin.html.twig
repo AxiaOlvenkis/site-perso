@@ -1,0 +1,61 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<div class='row panel_admin'>
+		<div class="tab-content col-md-8">
+		    <div class="tab-pane active" id="alerte">
+		    	<div class="panel panel-danger">
+				  	<div class="panel-heading"></div>
+					  <div class="panel-body">
+					  	{% if listAlerts|length == 0 %}
+				    		<p>Pas d'alerte pour le moment</p>
+				    	{% endif %}
+				    	{% for alert in listAlerts %}
+					  		<p><a href="{{ path('core_delete_alerte', {'id': alert.id}) }}" style="color:red; border: solid red 2px; border-radius:30px;"><b><i class="fa fa-times"></i></b></a><u>{{alert.titre}}</u> : {{alert.message}}</p>
+					  	{% endfor %}
+					  </div>
+				</div>
+			</div>
+		    <div class="tab-pane" id="gestion">
+		   		<div class="panel panel-info">
+				  <div class="panel-heading"></div>
+					  <div class="panel-body">
+					  	<ul>
+					  		<li><a href="{{ path('admin_page')}}">{{ 'admin.gestion.pages'|trans }}</a></li>
+					  		<li><a href="{{ path('admin_real')}}">{{ 'admin.gestion.real'|trans }}</a></li>
+					  		<li><a href="{{ path('core_contact_view')}}">{{ 'admin.gestion.contact'|trans }}</a></li>
+					  	</ul>
+					  </div>
+				</div>
+			</div>
+			<div class="tab-pane" id="users">
+		   		<div class="panel panel-info">
+				  <div class="panel-heading"></div>
+				  <div class="panel-body">
+				  	<ul>
+				  		<li><a href="{{ path('user_list')}}">{{ 'admin.gestion.mesutilisateurs'|trans }}</a></li>
+				  	</ul>
+				  </div>
+			</div>
+			</div>
+			<div class="tab-pane" id="biblio">
+		   		<div class="panel panel-info">
+				  <div class="panel-heading"></div>
+				  <div class="panel-body">
+				  	<ul>
+						<li><a href="{{ path('recup_homepage') }}">Recuperation des Données</a></li>
+						<li><a href="{{ path('biblio_edition') }}">Editions des Données</a></li>
+				  	</ul>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<ul class="nav nav-pills nav-stacked col-md-3">
+		    <li class="active"><a href="#alerte" data-toggle="tab"><b>{{ 'admin.alert'|trans }} ({{listAlerts|length}})</b></a></li>
+		    <li><a href="#gestion" data-toggle="tab">{{ 'admin.gestion.site'|trans }}</a></li>
+		    <li><a href="#users" data-toggle="tab">{{ 'admin.gestion.utilisateur'|trans }}</a></li>
+		    <li><a href="#biblio" data-toggle="tab">{{ 'admin.gestion.biblio'|trans }}</a></li>
+		</ul>
+	</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+{% endblock %}

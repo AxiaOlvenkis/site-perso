@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse nav-interne">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a id="all">Tout Voir</a></li>
+            <li class=""><a id="collection">Ma Collection</a></li>
+            <li class=""><a id="en_cours">A Acheter</a></li>
+            <li class=""><a id="fini">Collections Terminés</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="form-inline form-search">
+                <div class="form-group">
+                    <input type="search" class="form-control" id="search" placeholder="recherche par titre">
+                </div>
+                <button class="btn btn-default">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true">
+                    </span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="lst_biblio">
+    {% include "AxiaUserBiblioBundle:Liste:liste_BD.html.twig" %}
+</div>
+<script src="{{ asset('bundles/axiauserbiblio/parts_liste.js') }}"></script>

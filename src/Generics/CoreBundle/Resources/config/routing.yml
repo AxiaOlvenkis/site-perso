@@ -1,0 +1,12 @@
+core_index:
+    path:     /
+    defaults: { _controller: GenericsCoreBundle:Core:index}
+
+contact:
+    resource: "@GenericsCoreBundle/Resources/config/routes/contact.yml"
+
+page:
+    resource: "@GenericsCoreBundle/Resources/config/routes/page.yml"
+
+realisation:
+    resource: "@GenericsCoreBundle/Resources/config/routes/realisation.yml"

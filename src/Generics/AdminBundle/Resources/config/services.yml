@@ -1,0 +1,18 @@
+services:
+    files.services:
+        class:    Generics\AdminBundle\Services\FileServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    alerte.services:
+        class:    Generics\AdminBundle\Services\AlerteServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    mail.services:
+        class:    Generics\AdminBundle\Services\MailServices
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    verif.services:
+        class:    Generics\AdminBundle\Services\VerifServices

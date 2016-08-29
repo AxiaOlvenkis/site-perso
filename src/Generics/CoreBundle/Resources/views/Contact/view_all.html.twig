@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<p><a href="{{ path('generics_admin_homepage') }}" class="btn btn-info"><b> &#x2190; </b> {{ 'admin.retour'|trans }}</a>
+	<hr />
+	<table style='width:90%'>
+		<tr>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">{{ 'admin.message.nom'|trans }}</th>
+			<th style="text-align:center;background-color:white;color: black; height:30px;">{{ 'admin.message.sujet'|trans }}</th>
+		</tr>
+
+		{% for message in listContact %}
+			<tr>
+				<td style="width:10%">{{ message.nom }}</td>
+				<td style="width:10%">{{ message.sujet }}</td>
+				<td style="width:10%"><a href="{{ path('core_contact_view_message', {'id': message.id}) }}">{{ 'admin.message.voir'|trans }}</a></td>
+				<td style="width:10%"><a href="{{ path('core_contact_delete', {'id': message.id}) }}">{{ 'admin.message.delete'|trans }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+	<hr />
+	<p><a href="{{ path('generics_admin_homepage') }}" class="btn btn-info"><b> &#x2190; </b> {{ 'admin.retour'|trans }}</a>
+{% endblock %}

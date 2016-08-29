@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+	<p><a href="{{path('admin_add_page')}}" class="btn btn-danger">{{ 'page.titre.add'|trans }}</a></p>
+	<table class='tab_admin'>
+		<tr>
+			<th>{{ 'page.nom'|trans }}</th>
+			<th>{{ 'page.id'|trans }}</th>
+		</tr>
+		{% for page in listPages %}
+			<tr>
+				<td>{{ page.titre }}</td>
+				<td>{{ page.link }}</td>
+				<td><a href="{{path('admin_edit_page', {'id': page.id})}}">{{ 'page.titre.edit'|trans }}</a></td>
+				<td><a href="{{path('admin_delete_page', {'id': page.id})}}">{{ 'page.titre.delete'|trans }}</a></td>
+			</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

@@ -1,0 +1,3 @@
+[submodule "src/Axia/BiblioBundle"]
+	path = src/Axia/BiblioBundle
+	url = https://gitlab.com/AxiaOlvenkis/BiblioBundle.git

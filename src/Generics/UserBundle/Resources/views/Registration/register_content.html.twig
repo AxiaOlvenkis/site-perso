@@ -1,0 +1,95 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+$(document).ready(function() {
+    $('#fos_user_registration_form_plainPassword_first, #fos_user_registration_form_plainPassword_second').on('keyup', function(e) {
+ 
+     if($('#fos_user_registration_form_plainPassword_first').val() != '' && $('#fos_user_registration_form_plainPassword_second').val() != '' && $('#fos_user_registration_form_plainPassword_first').val() != $('#fos_user_registration_form_plainPassword_second').val())
+            {
+               $('#passwordStrength').removeClass().addClass('btn btn-danger').html('Les mots de passe ne correspondent pas');
+ 
+            return false;
+           }
+ 
+        // Must have capital letter, numbers and lowercase letters
+        var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+ 
+        // Must have either capitals and lowercase letters or lowercase and numbers
+        var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+ 
+        // Must be at least 5 characters long
+        var okRegex = new RegExp("(?=.{5,}).*", "g");
+ 
+        if (okRegex.test($(this).val()) === false) {
+            // If ok regex doesn't match the password
+               $('#passwordStrength').removeClass().addClass('btn btn-danger').html('Le mot de passe doit faire AU MOINS 5 caracteres');
+               $('#valider').removeClass().addClass('btn btn-primary btn-lg disabled');
+ 
+        } else if (strongRegex.test($(this).val())) {
+            // If reg ex matches strong password
+            $('#passwordStrength').removeClass().addClass('btn btn-success').html('Mot de Passe FORT');
+        } else if (mediumRegex.test($(this).val())) {
+            // If medium password matches the reg ex
+            $('#passwordStrength').removeClass().addClass('btn btn-info').html('Rendez votre mot de passe plus fort, avec plus de lettre capitale, nombre ou caracteres spéciaux !');
+        } else {
+            // If password is ok
+            $('#passwordStrength').removeClass().addClass('btn btn-warning').html("Mot de Passe FAIBLE, essayez d'utiliser des nombres et lettres capitales");
+        }
+ 
+        return true;
+    });
+
+});
+</script>
+
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    <div class="well">
+	  {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+	    {# Les erreurs générales du formulaire. #}
+	    {{ form_errors(form) }}
+
+	    <div class="form-group">
+	      {{ form_label(form.email, "Mail :", {'label_attr': {'class': 'control-label'}}) }}
+	      {{ form_errors(form.email) }}
+	      <div class="">
+	        {{ form_widget(form.email, {'attr': {'class': 'form-control string_contact'}}) }}
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      {{ form_label(form.username, "Pseudonyme ( 5 à 20 caracteres ):", {'label_attr': {'class': 'control-label'}}) }}
+	      {{ form_errors(form.username) }}
+	      <div class="">
+	        {{ form_widget(form.username, {'attr': {'class': 'form-control string_contact'}}) }}
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      {{ form_label(form.plainPassword.first, "Mot de Passe ( 5 à 30 caracteres) :", {'label_attr': {'class': 'control-label'}}) }}
+	      {{ form_errors(form.plainPassword.first) }}
+	      <div class="">
+	        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control string_contact'}}) }}
+	      </div>
+	    </div>
+
+	    <div class="form-group">
+	      {{ form_label(form.plainPassword.second, "Repeter le Mot de Passe :", {'label_attr': {'class': 'control-label'}}) }}
+	      {{ form_errors(form.plainPassword.second) }}
+	      <div class="">
+	        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control string_contact'}}) }}
+	      </div>
+	    </div>
+
+	    <div class="" id="passwordStrength"></div>
+
+	    <div class="g-recaptcha" data-sitekey="6LcGKd0SAAAAAHjoZnAc3h3jwO4r6dpzb4uiJZFM"></div>
+
+	    <div class="form-group">
+		    {{ form_rest(form, {'attr': {'class': 'form-control string_contact'}}) }}
+		</div>
+	    <div>
+	        <input id='valider' type="submit" value="{{ 'registration.submit'|trans }}" class='btn btn-primary btn-lg' />
+	    </div>
+	</div>
+{{ form_end(form) }}

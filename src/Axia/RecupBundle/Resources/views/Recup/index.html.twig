@@ -1,0 +1,15 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <h1>Recuperation</h1>
+    <p>
+        {% for type in types %}
+            <button class="type" id="{{ type.libelle }}">{{ type.libelle }}</button>
+        {% endfor %}
+    </p>
+    <div class="parts"></div>
+    <script>
+        langue = "{{ app.request.locale }}";
+    </script>
+    <script src="{{ asset('bundles/axiarecup/recup.js') }}"></script>
+{% endblock %}

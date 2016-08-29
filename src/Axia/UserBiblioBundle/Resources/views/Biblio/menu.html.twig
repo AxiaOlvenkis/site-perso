@@ -1,0 +1,15 @@
+<nav class="navbar navbar-inverse bibliotheque">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Bibliothéque</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a id="Accueil">Accueil</a></li>
+            {% for type in types %}
+                <li><a id="{{ type.libelle }}">{{ type.libelle }}</a></li>
+            {% endfor %}
+            <li><a id="Course">Liste de Course</a></li>
+        </ul>
+    </div>
+</nav>
+<script src="{{ asset('bundles/axiauserbiblio/parts.js') }}"></script>

@@ -1,0 +1,59 @@
+core.home: Home
+error404: The page you are asking does not exist
+contact.titre.ajout : Contact
+contact.titre.delete : Delete a message
+contact.save : Send
+contact.message: If you want me recontacted you, leave me your contact.
+page.titre:
+    add: Add a page
+    edit: Edit a page
+    delete: Delete a page
+page.nom: Page name
+page.id: Page id
+admin:
+    retour: Back to administration
+    alert: My Alerts
+    alert.delete: Delete an alert
+    gestion:
+        site: Site gestion
+        pages: Pages gestion
+        real: Realisation Gestion
+        contact: Messages Received (contact form)
+        utilisateur: Users Gestion
+        mesutilisateurs: Users
+        blog: Blog Gestion
+        articles: Articles
+        tags: Tags Gestion
+        biblio: Library Gestion
+        type: Types Gestion
+        auteur: Authors Gestion
+        editeur: Editors Gestion
+        collection: Collections Gestion
+        theme: Themes Gestion
+    message:
+        nom: Name
+        sujet: Subject
+        voir: View Message
+        delete: Delete Message
+        retour: Back to Messages List
+realisation.acces: View the realisation
+realisation.titre: Realisation Title
+realisation.lien: Realisation Link
+real.titre:
+    add: Add a realisation
+    edit: Edit a realisation
+    delete: Delete a realisation
+site.titre: Web Developer
+menu:
+    qui: Who am I ?
+    realisation: Realisations
+    contact: Contact
+    biblio: Library
+    blog: Blog
+    recherche: Search
+core.social: Social Networks
+footer.legal: Legals Mentions
+theme.titre:
+    add: Add a theme
+    edit: Edit a theme
+    delete: Delete a theme

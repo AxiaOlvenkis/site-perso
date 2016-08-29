@@ -1,0 +1,21 @@
+recup_homepage:
+    path:     /administration/recuperation
+    defaults: { _controller: AxiaRecupBundle:Recup:index }
+
+recup_parts:
+    path:     /administration/parts
+    defaults: { _controller: AxiaRecupBundle:Recup:parts }
+    options:
+        expose: true
+
+recup_all:
+    path:     /administration/recup_all
+    defaults: { _controller: AxiaRecupBundle:Recup:recup_all }
+    options:
+        expose: true
+
+recup_single:
+    path:     /administration/recup_single
+    defaults: { _controller: AxiaRecupBundle:Recup:recup_single }
+    options:
+        expose: true

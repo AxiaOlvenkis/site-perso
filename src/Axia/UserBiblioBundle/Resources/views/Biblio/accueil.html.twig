@@ -1,0 +1,109 @@
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#livre">Livres - Nouveautés du Mois ({{ Livres|length }})</a></li>
+    <li><a data-toggle="tab" href="#link">Liens Utiles</a></li>
+    <li><a data-toggle="tab" href="#animes">Animés à voir</a></li>
+    <li><a data-toggle="tab" href="#series">Séries à voir</a></li>
+    <li><a data-toggle="tab" href="#films">Films à l'affiche</a></li>
+    <li><a data-toggle="tab" href="#booktoread">Livres à Lire</a></li>
+</ul>
+
+<div class="tab-content accueil-biblio">
+    <div id="livre" class="tab-pane fade in active">
+        <h3>Livres - Nouveautés du Mois</h3>
+        {% for book in Livres %}
+            {% set element = book|get_item %}
+            <p>
+                {{ element.titre }},
+                {{ 'element.ecrit'|trans }}
+                {{ element.auteurs|lst_pers }}
+                {{ 'element.editer'|trans }}
+                {{ element.editeurs|lst_editor|raw }}
+            </p>
+        {% endfor %}
+    </div>
+    <div id="link" class="tab-pane fade">
+        <h3>Liens Utiles</h3>
+        <ul>
+            <li><a href="http://www.spin-off.fr/calendrier_des_series.html" target="_blank">Calendrier des Séries</a></li>
+            <li><a href="http://www.mdcu-comics.fr/" target="_blank">Encyclopédie Comics</a></li>
+            <li><a href="http://www.bedetheque.com/" target="_blank">Encyclopédie BD</a></li>
+            <li><a href="http://www.nautiljon.com/" target="_blank">Encyclopédie Animés et Mangas</a></li>
+            <li><a href="http://www.trictrac.net/" target="_blank">Encyclopédie Jeux de Sociétés</a></li>
+            <li><a href="http://www.allocine.fr/film/sorties-semaine/" target="_blank">Sortie de la semaine (allociné)</a></li>
+        </ul>
+    </div>
+    <div id="animes" class="tab-pane fade">
+        <div class="lst_a_voir">
+            <h3>Animés à Voir</h3>
+            {% for anime in Animes %}
+                <div class="element">
+                    {% set element = anime|get_item %}
+                    <p>
+                        {{ element.titre }}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <button class="moinsPlus" id="{{ anime.id }}">
+                                <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
+                            </button>
+                            <span id="number">{{ anime.dernierVu }} </span> / {{ anime|has_a_voir }}
+                            <button class="moinsPlus" id="{{ anime.id }}">
+                                <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
+                            </button>
+                        {% else %}
+                            <span id="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisode }}
+                        {% endif %}
+                    </p>
+                    <p>({{ element.nbEpisode }} Episodes prévus )</p>
+                </div>
+                <hr />
+            {% endfor %}
+        </div>
+    </div>
+    <div id="series" class="tab-pane fade">
+        <div class="lst_a_voir">
+            <h3>Séries à Voir</h3>
+            {% for serie in Series %}
+                <div class="element">
+                    {% set element = serie|get_item %}
+                    <p>
+                        {{ element.titre }}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <button class="moinsPlus" id="{{ serie.id }}">
+                                <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
+                            </button>
+                            <span id="number">{{ serie.dernierVu }} </span> / {{ serie|has_a_voir }}
+                            <button class="moinsPlus" id="{{ serie.id }}">
+                                <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
+                            </button>
+                        {% else %}
+                            <span id="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisode }}
+                        {% endif %}
+                    </p>
+                    <p>({{ element.nbEpisode }} Episodes prévus )</p>
+                </div>
+                <hr />
+            {% endfor %}
+
+        </div>
+    </div>
+    <div id="films" class="tab-pane fade">
+        <h3>Films à voir</h3>
+        {% for film in Films %}
+            {% set element = film|get_item %}
+            <p>
+                {{ element.titre }}
+            </p>
+        {% endfor %}
+    </div>
+    <div id="booktoread" class="tab-pane fade">
+        <h3>Livres à Lire</h3>
+        {% for livre in ToReads %}
+            {% set element = livre|get_item %}
+            <p>
+                {{ element.titre }}
+            </p>
+        {% endfor %}
+    </div>
+</div>
+{% if is_granted("ROLE_ADMIN") %}
+    <script src="{{ asset('bundles/axiauserbiblio/modif.js') }}"></script>
+{% endif %}

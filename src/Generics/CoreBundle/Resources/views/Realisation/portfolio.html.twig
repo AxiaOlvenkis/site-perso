@@ -1,0 +1,29 @@
+<div id="carousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+	{% set i = 1 %}
+   	{% for real in listReal %}
+       <div class="item 
+       {% if i == 1 %}
+       active
+       {% endif %}
+       ">
+       		<img alt="{{ real.titre }}" src="{{ asset(real.image.webPath) }}" class='img_real'>
+       		<div class='desc_real'>
+       			<h2>{{ real.titre }}</h2>
+			    {% if real.lien != '' %}
+			    	<p><a target='_blank' href='{{real.lien}}'>{{ 'realisation.acces'|trans }}</a></p>
+			    {% endif %}
+			    <p>{{ real.description|raw }}</p>
+       		</div>
+       </div>
+       {% set i = i + 1 %}
+    {% endfor %}
+   </div>
+  <a class="left carousel-control" href="#carousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

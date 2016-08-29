@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+  {{ 'theme.titre.delete'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  <h2>{{ 'theme.titre.delete'|trans }}</h2>
+
+  <p>
+    Etes-vous certain de vouloir supprimer ce theme : "{{ theme.nom }}" ?
+  </p>
+
+  {# On met l'id de l'annonce dans la route de l'action du formulaire #}
+  <form action="{{ path('admin_delete_theme', {'id': theme.id}) }}" method="post">
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

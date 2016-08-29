@@ -1,0 +1,568 @@
+body {
+  padding-top: 0px;
+  background-color:rgb(200,200,200);
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.container
+{
+	border-radius: 6px;
+}
+
+.entete
+{
+  border-bottom: 3px solid black;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom:20px;
+}
+
+.entete h1
+{
+  padding: 30px 15px;
+  margin-bottom: 30px;
+  color: inherit;
+  font-size:35pt;
+}
+
+.navbar-brand
+{
+  margin:auto;
+}
+
+.navbar-nav
+{
+  /*border:1px solid black;*/
+  text-align:center;
+}
+
+.col_gauche
+{
+  margin-left:-10px;
+}
+
+.menu_gauche
+{
+	padding-left:0px;
+	padding-right:0px;
+	border-radius: 6px;
+	line-height: 40px;
+	text-align: center;
+	margin-bottom:20px;
+}
+
+.fa-users,.fa-bookmark
+{
+  padding-right:5px;
+}
+
+.btn_user_link
+{
+    width:150px;
+    text-align:center;
+}
+
+.le_corps
+{
+  padding-left: 5px;
+  text-align:justify;
+}
+
+.le_corps img
+{
+  max-width:100%;
+}
+
+.footer
+{
+  border-top: 1px solid black;
+  border-radius: 6px;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom:20px;	
+}
+
+.panel_admin
+{
+  margin:auto;
+  margin-bottom:10px;
+}
+
+@media (min-width: 768px) {
+    .list_bar_biblio > ul > li
+    {
+      border-right:solid black 1px;
+    }
+}
+
+.tab_biblio
+{
+  text-align:center;
+}
+
+.tab_biblio th
+{
+  text-align: center;
+  height: 30px;
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+}
+
+.tab_biblio td
+{
+  border-right: solid 1px black;
+  border-bottom: solid 1px black;
+  height:30px;
+  padding-right:10px;
+  padding-left:10px;
+}
+
+.tab_biblio th
+{
+  padding-right:10px;
+  padding-left:10px;
+}
+
+.ui-autocomplete
+{
+  background-color:white;
+  width:100px;
+}
+
+#ui-datepicker-div
+{
+  background-color:white;
+}
+
+#ui-datepicker-div table
+{
+  background-color:white;
+  width:300px;
+  height:200px;
+}
+
+.pan_index_bibli
+{
+  margin-right:30px;
+  margin-left:30px;
+  padding:0;
+}
+
+@media (min-width: 992px) {
+  .accueil_bibli {
+    display: flex;
+  }
+}
+
+.pan_index_bibli_title
+{
+  text-align:center;
+}
+
+.tab_admin
+{
+  width:50%;
+  margin:auto;
+  border:solid 1px black;
+}
+
+.tab_admin th
+{
+  border:solid 1px black;
+  text-align:center;
+  height:30px;
+}
+
+.tab_admin td
+{
+  border:solid 1px black;
+  text-align:center;
+  height:30px;
+}
+
+.mon_texte
+{
+  width:100%;
+  padding-left:10%;
+  padding-right:10%;
+  margin:auto;
+}
+
+.pan_index_blog
+{
+  margin-right:30px;
+  margin-left:30px;
+  padding:0;
+}
+
+.pan_index_blog_title
+{
+  text-align:center;
+}
+
+.div_lbl
+{
+  width:50%;
+  margin:auto;
+  text-align:center;
+}
+
+.pan_liste_blog
+{
+  margin-right:30px;
+  margin-left:30px;
+  padding:0;
+}
+
+
+.panel-info
+{  
+  border-color:black;
+}
+
+.panel-info > .panel_com
+{
+  background-color:black;
+  border-color:black;
+}
+
+.text-com
+{
+  margin-left:50px;
+}
+
+.text-com p
+{
+  word-wrap: break-word;
+}
+
+.div_com
+{
+  border-bottom:1px solid black;
+}
+
+.tab_user
+{
+  margin:auto;
+  border:solid 1px black;
+}
+
+.tab_user th
+{
+  border:solid 1px black;
+  text-align:center;
+  height:30px;
+}
+
+.tab_user td
+{
+  border:solid 1px black;
+  text-align:center;
+  height:50px;
+}
+
+
+.carousel-wrapper 
+{
+  position: relative;
+}
+
+.carousel-item 
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 25px 20px;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.arrow 
+{
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 6%;
+  height: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background: url("../images/carousel-arrow-dark.png") 50% 50% / 20px no-repeat;
+  background-color:rgba(255,255,255,0.7);
+}
+
+.arrow-prev 
+{
+  left: 0;
+}
+.arrow-next 
+{
+  right: 0;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+@media (max-width: 480px) {
+.arrow, &.light .arrow 
+  {
+  background-size: 10px;
+  background-position: 10px 50%;
+  }
+}
+
+[id^="target-item"] 
+{
+  display: none;
+}
+
+.item-1 
+{
+  z-index: 2;
+  opacity: 1;
+}
+
+*:target ~ .item-1 
+{
+  opacity: 0;
+}
+
+#target-item-1:target ~ .item-1 
+{
+  opacity: 1;
+}
+
+#target-item-2:target ~ .item-2, #target-item-3:target ~ .item-3 
+{
+  z-index: 3;
+  opacity: 1;
+}
+
+.desc_real
+{
+  background-color:rgba(255,255,255,0.7);
+  width:100%;
+  position: absolute;
+  bottom: 0;
+  padding-left:20%;
+  padding-right:20%;
+}
+
+.img_real
+{
+  margin:auto;
+}
+
+/* mes formulaires */
+.string_contact
+{
+  width:50%;
+}
+
+.form_register label
+{
+  width:100%;
+}
+
+.form_register input
+{
+  width:50%;
+}
+
+.reseaux_sociaux
+{
+  padding:0;
+}
+.reseaux_sociaux i
+{
+  font-size: 30px;
+}
+
+.share_btn
+{
+  background-color:white;
+  padding:10px;
+  width:50%;
+  margin:auto;
+}
+.share_btn img
+{
+  height:30px;
+}
+.share_ico
+{
+  width:25%;
+  margin:auto;
+}
+
+.mon_texte img
+{
+  max-width:100%;
+}
+
+.box_serie_exc
+{
+  height:300px;
+}
+
+.btn
+{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+@media (min-width: 768px) {
+    .ico_menu
+    {
+      border-right:solid 1px black;
+    }
+}
+
+@media (max-width: 768px) {
+    .ico_menu
+    {
+      border-bottom:solid 1px black;
+    }
+    .navbar-nav
+    {
+      margin-left: 0px;
+      margin-right:0px;
+    }
+}
+
+.menu-lang img
+{
+  max-width:25px;
+  margin:3px;
+}
+
+#recherche
+{
+  max-width:150px;
+}
+
+.le_com
+{
+  width:50%;
+  margin:auto;
+}
+
+.le_com textarea
+{
+  width:100%;
+  margin:auto;
+  height:150px;
+}
+
+.formulaire .form-group{
+  margin: 0;
+}
+
+.biblio
+{
+  text-align: center;
+}
+
+.biblio th
+{
+  text-align: center;
+}
+
+@media only screen and (min-width:768px) {
+  .lst_biblio .row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 10px;
+  }
+}
+
+.aff_elements{
+  margin: 0;
+}
+
+.bloc-index{
+  border: 1px solid black;
+  margin: 0;
+}
+
+.barre-admin{
+  margin-top: -20px;
+}
+
+.btn-modal-index{
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.livre{
+  background-color: #1b6d85;
+}
+
+.jeu{
+  background-color: #761c19;
+}
+
+.anime{
+  background-color: #4cae4c;
+}
+
+.bd{
+  background-color: #7a43b6;
+}
+
+.comics{
+  background-color: #9d9d9d;
+}
+
+.film{
+  background-color: #c3325f;
+}
+
+.manga{
+  background-color: #ff9900;
+}
+
+.serie{
+  background-color: #ce8483;
+}
+
+.selected{
+  background-color: black;
+  color: white;
+  text-decoration: underline;
+}
+
+.btn.livre, .btn.jeu, .btn.bd, .btn.film{
+  color:white;
+}
+
+.btn.livre:hover, .btn.jeu:hover{
+  color:black;
+}
+
+.text-title{
+  font-size: 20pt;
+}
+
+.bloc-index .text-title, .bloc_admin_element{
+  border-bottom: 1px solid grey;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.accueil-biblio{
+  text-align: left;
+    padding-left:10px;
+}
+
+.lst_a_voir{
+  text-align: center;
+  width:40%;
+  margin:auto;
+  padding:10px;
+}

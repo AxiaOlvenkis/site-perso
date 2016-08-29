@@ -1,0 +1,19 @@
+core_page:
+    path:     /page/{intitule}
+    defaults: { _controller: GenericsCoreBundle:Core:pages}
+
+admin_page:
+    path:     /admin/view_page
+    defaults: { _controller: GenericsCoreBundle:Page:view_page}
+
+admin_add_page:
+    path:     /admin/add_page
+    defaults: { _controller: GenericsCoreBundle:Page:add_page}
+
+admin_edit_page:
+    path:     /admin/edit_page/{id}
+    defaults: { _controller: GenericsCoreBundle:Page:edit_page}
+
+admin_delete_page:
+    path:     /admin/delete_page/{id}
+    defaults: { _controller: GenericsCoreBundle:Page:delete_page}
