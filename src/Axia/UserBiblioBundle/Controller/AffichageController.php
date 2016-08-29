@@ -54,7 +54,7 @@ class AffichageController extends Controller
             ));
         }
 
-        return $this->editionAction();
+        return $this->indexAction();
     }
 
     public function listeAction(Request $request)

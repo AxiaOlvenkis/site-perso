@@ -323,8 +323,6 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('b');
         $qb->where('1 = 1');
-        $qb->andWhere($qb->expr()->like('b.type', ':type'));
-        $qb->setParameter('type', 'Livre');
         $qb->andWhere('b.valide = 1');
         $qb->andWhere('b.possede = 0');
         $qb->andWhere('b.user = :user');

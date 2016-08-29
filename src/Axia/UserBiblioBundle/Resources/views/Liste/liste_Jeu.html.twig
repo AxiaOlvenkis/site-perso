@@ -12,7 +12,11 @@
             <p>{{ 'element.editer'|trans }}
                 {{ element.editeurs|lst_editor|raw }}
             </p>
-            <p>{{ element.dateParution|date('d M Y')|get_parution|raw }}</p>
+            {% if element.dateParution is not null %}
+                <p>{{ element.dateParution|date('d M Y')|get_parution|raw }}</p>
+            {% else %}
+                <p>date de parution non renseignée</p>
+            {% endif %}
             <p class="note">{{ biblio.note|getNote|raw }}</p>
             <p class="LuPossede" id="{{ biblio.id }}">
                 <b>Possede</b> :
