@@ -1,7 +1,1 @@
-<button class="moinsPlusNote" id="{{ biblio.id }}">
-    <span class="glyphicon glyphicon-minus" id="note-moins" aria-hidden="true"></span>
-</button>
-    {{ biblio.note|getNote|raw }}
-<button class="moinsPlusNote" id="{{ biblio.id }}">
-    <span class="glyphicon glyphicon-plus" id="note-plus" aria-hidden="true"></span>
-</button>
+{{ biblio.note|getNote|raw }}

@@ -148,7 +148,13 @@ class Biblio
      */
     public function setNote($note)
     {
-        $this->note = $note;
+        if($note > 10):
+            $this->note = 10;
+        elseif($note < -1):
+            $this->note = -1;
+        else:
+            $this->note = $note;
+        endif;
 
         return $this;
     }

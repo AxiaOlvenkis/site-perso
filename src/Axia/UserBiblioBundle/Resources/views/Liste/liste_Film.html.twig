@@ -14,12 +14,11 @@
                     {{ element.collection.collection.nom }} #{{ element.collection.numero }}
                 </p>
             {% endif %}
-            <p class="note">{{ biblio.note|getNote|raw }}</p>
+        <p class="note">{% include "AxiaUserBiblioBundle:Fragments:frag_note.html.twig" %}</p>
             <p class="LuPossede" id="{{ biblio.id }}">
-                <b>Vu</b> :
-                <button class="Vu">{{ biblio.vu|getChecked|raw }}</button> |
-                <b>Possede</b> :
-                <button class="Possede">{{ biblio.possede|getChecked|raw }}</button>
+                {% include "AxiaUserBiblioBundle:Fragments:frag_vu.html.twig" %}
+                |
+                {% include "AxiaUserBiblioBundle:Fragments:frag_possede.html.twig" %}
             </p>
             <p>{{ element.dateParution|date('d M Y')|get_parution|raw }}</p>
             {% if element.tags is defined and element.tags is not null and element.tags is not empty %}

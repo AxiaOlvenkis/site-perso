@@ -25,6 +25,33 @@ function modifier_nb(id, action)
     return false;
 }
 
+// Modification des notes
+$(function(){
+    var button = $("button.moinsPlusNote");
+    function modif_note() {
+        var $this   = $(this);
+        id = $this.attr('id');
+        var action = $this.children('span').attr('id');
+        modifier_note(id, action);
+    }
+    button.click(modif_note);  // attach event handler
+});
+
+function modifier_note(id, action)
+{
+    var DATA = "id=" + id + "&action=" + action;
+    $.ajax({
+        type: "POST",
+        url: Routing.generate('biblio_edition_nombre'),
+        data: DATA,
+        cache: false,
+        success: function (data) {
+            $(".la_note_" + id).html(data);
+        }
+    });
+    return false;
+}
+
 // Modification des true/false sur le vu/possede
 $(function(){
     var button = $(".LuPossede > button");

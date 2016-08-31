@@ -66,17 +66,37 @@ class EditionController extends Controller
             $action = $request->get('action');
 
             $element = $this->get('biblio.services')->findOneById($id);
-            $nb = $element->getDernierVu();
+            $nb = 0;
 
             if($action == 'plus'):
+                $nb = $element->getDernierVu();
                 $nb = $nb + 1;
+                $element->setDernierVu($nb);
             elseif($action == 'moins'):
+                $nb = $element->getDernierVu();
                 $nb = $nb - 1;
+                $element->setDernierVu($nb);
+            elseif($action == 'note-moins'):
+                $nb = $element->getNote();
+                $nb = $nb - 1;
+                $element->setNote($nb);
+            elseif($action == 'note-plus'):
+                $nb = $element->getNote();
+                $nb = $nb + 1;
+                $element->setNote($nb);
             endif;
-            $element->setDernierVu($nb);
             $this->get('biblio.services')->save($element);
 
-            return new Response($nb);
+            if($action == 'plus' || $action == 'moins')
+            {
+                return new Response($nb);
+            }
+            elseif($action == 'note-plus' || $action == 'note-moins')
+            {
+                return $this->render('AxiaUserBiblioBundle:Fragments:frag_num_note.html.twig', array(
+                    'biblio' => $element
+                ));
+            }
         }
 
         return $this->editionAction();

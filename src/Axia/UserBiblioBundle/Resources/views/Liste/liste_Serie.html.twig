@@ -11,26 +11,12 @@
             </p>
             <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
             <p>Status : {{ element|getStatus }}</p>
-            <p class="{{ biblio.id }}">
-                {% if is_granted("ROLE_ADMIN") %}
-                    <button class="moinsPlus" id="{{ biblio.id }}">
-                        <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
-                    </button>
-                    <span class="number">{{ biblio.dernierVu }} </span> / {{ element.nbEpisode }}
-                    <button class="moinsPlus" id="{{ biblio.id }}">
-                        <span class="glyphicon glyphic  on-plus" id="plus" aria-hidden="true"></span>
-                    </button>
-                {% else %}
-                    <span class="number">{{ biblio.dernierVu }} </span> / {{ biblio|has_a_voir }}
-                {% endif %}
-            </p>
-            <p>({{ element.nbEpisode }} Episodes prévus )</p>
-            <p class="note">{{ biblio.note|getNote|raw }}</p>
+        {% include "AxiaUserBiblioBundle:Fragments:frag_episode.html.twig" %}
+        <p class="note">{% include "AxiaUserBiblioBundle:Fragments:frag_note.html.twig" %}</p>
             <p class="LuPossede" id="{{ biblio.id }}">
-                <b>Vu</b> :
-                <button class="Vu">{{ biblio.vu|getChecked|raw }}</button> |
-                <b>Possede</b> :
-                <button class="Possede">{{ biblio.possede|getChecked|raw }}</button>
+                {% include "AxiaUserBiblioBundle:Fragments:frag_vu.html.twig" %}
+                |
+                {% include "AxiaUserBiblioBundle:Fragments:frag_possede.html.twig" %}
             </p>
             {% if element.tags is defined and element.tags is not null and element.tags is not empty %}
                 <hr />

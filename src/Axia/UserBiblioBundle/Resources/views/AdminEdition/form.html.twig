@@ -51,6 +51,11 @@
 
 
     {% if element|get_type != 'Livre' and element|get_type != 'Film' and element|get_type != 'Jeu' %}
+        {% if element|get_type == 'BD' || element|get_type == 'Manga' || element|get_type == 'Comics' %}
+            <p>Nombre de Tome VF : {{ element.nbTomeVF }}</p>
+        {% elseif element|get_type == 'Anime' || element|get_type == 'Serie' %}
+            <p>Nombre d'Episodes : {{ element.nbEpisode }}</p>
+        {% endif %}
         <div class="form-group">
             {{ form_label(form.dernierVu, "Dernier Vu :", {'label_attr': {'class': 'control-label'}}) }}
             {{ form_errors(form.dernierVu) }}

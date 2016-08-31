@@ -17,10 +17,9 @@
             {% else %}
                 <p>date de parution non renseignée</p>
             {% endif %}
-            <p class="note">{{ biblio.note|getNote|raw }}</p>
+        <p class="note">{% include "AxiaUserBiblioBundle:Fragments:frag_note.html.twig" %}</p>
             <p class="LuPossede" id="{{ biblio.id }}">
-                <b>Possede</b> :
-                <button class="Possede">{{ biblio.possede|getChecked|raw }}</button>
+                {% include "AxiaUserBiblioBundle:Fragments:frag_possede.html.twig" %}
             </p>
             {% set i = i + 1 %}
             {% if i == 3 %}
