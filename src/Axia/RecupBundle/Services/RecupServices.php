@@ -239,4 +239,32 @@ class RecupServices
 
         return true;
     }
+
+    public function recup_update($type)
+    {
+        $liste = array();
+        $liste_element = $this->elementService->findFilter($type);
+
+        foreach ($liste_element as $element)
+        {
+            $api_element = '';
+            try{
+                $api_element = json_decode(file_get_contents("http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID()), true);
+            }
+            catch(\Exception $e){
+                $erreur = 'Elements non trouvés';
+            }
+
+            if(isset($api_element['date_edit']))
+            {
+                $date = new \DateTime($api_element['date_edit']);
+                if($element->getDateEdit() <= $date)
+                {
+                    $liste[] = $element;
+                }
+            }
+
+            return $liste;
+        }
+    }
 }

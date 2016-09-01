@@ -240,10 +240,52 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
         {
             $qb->join('b.film', 'e')->addSelect('e');
         }
+        elseif($type == 'Jeu')
+        {
+            $qb->join('b.jeu', 'e')->addSelect('e');
+        }
+        elseif($type == 'Livre')
+        {
+            $qb->join('b.livre', 'e')->addSelect('e');
+        }
 
         $date = new \DateTime();
         $qb->andWhere('e.dateParution > :date');
         $qb->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME);
+
+
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findAAcheter($type = '', $user)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb->where('1 = 1');
+        $qb->andWhere($qb->expr()->like('b.type', ':type'));
+        $qb->setParameter('type', $type);
+        $qb->andWhere('b.valide = 1');
+        $qb->andWhere('b.user = :user');
+        $qb->setParameter('user', $user);
+
+        if($type == 'Manga')
+        {
+            $qb->join('b.manga', 'e')->addSelect('e');
+        }
+        elseif($type == 'Comics')
+        {
+            $qb->join('b.comics', 'e')->addSelect('e');
+        }
+        elseif($type == 'BD')
+        {
+            $qb->join('b.bd', 'e')->addSelect('e');
+        }
+
+        $date = new \DateTime();
+        $qb->andWhere('e.dateParution < :date');
+        $qb->setParameter('date', $date, \Doctrine\DBAL\Types\Type::DATETIME);
+
+        $qb->andWhere('b.dernierVu <> e.nbTomeVF');
 
 
 

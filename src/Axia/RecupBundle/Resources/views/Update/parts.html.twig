@@ -1,0 +1,81 @@
+<button class="btn btn-primary" id="add_all">Ajouter toute la liste</button>
+<table class="table table-responsive table-bordered">
+    <tr>
+        <th>Titre</th>
+        <th>Date Edition</th>
+        <th>Date Parution</th>
+        <th>Lien Vers La Fiche</th>
+    </tr>
+    {% for element in liste %}
+        <tr>
+            <td>{{ element.titre }}</td>
+            {% if element.dateEdit is defined %}
+                <td>{{ element.dateEdit|date('d M Y') }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            {% if element.dateParution is defined %}
+                <td>{{ element.dateParution|date('d M Y') }}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+            <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
+            <td><button class="btn btn-primary add_element" id="{{ element.stringID }}">Ajouter l'Element</button></td>
+        </tr>
+    {% endfor %}
+</table>
+<script>
+    $(function(){
+        var panel = $(".add_element");
+        function recup_id() {
+            var $this   = $(this);
+            var cont = $this.attr('id');
+            save_single(type, cont);
+        }
+        panel.click(recup_id);  // attach event handler
+    });
+
+    function save_single(type, id)
+    {
+        var DATA = "type=" + type + "&stringID=" + id;
+        $.ajax({
+            type: "POST",
+            url: Routing.generate('recup_single'),
+            data: DATA,
+            cache: false,
+            success: function () {
+                var btn = $("#" + id);
+                btn.addClass('disabled');
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+        return false;
+    }
+</script>
+<script>
+    $(function(){
+        var panel = $("#add_all");
+        function recup_all() {
+            var date = $(".table").attr('id');
+            save_all(type);
+        }
+        panel.click(recup_all);  // attach event handler
+    });
+
+    function save_all(type)
+    {
+        var DATA = "type=" + type;$.ajax({
+            type: "POST",
+            url: Routing.generate('recup_all'),
+            data: DATA,
+            cache: false,
+            success: function (data) {
+                var btn = $(".add_element");
+                btn.addClass('disabled');
+            },
+        });
+        return false;
+    }
+</script>

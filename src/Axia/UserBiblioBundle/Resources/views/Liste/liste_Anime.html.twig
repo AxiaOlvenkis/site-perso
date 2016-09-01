@@ -6,9 +6,7 @@
             <div class="row aff_elements">
         {% endif %}
             <div class="col-sm-4 bloc-index text-center">
-                <p class="text-success text-capitalize text-center text-title">
-                    <a href="{{ element.fiche }}" target="_blank">{{ element.titre }}</a>
-                </p>
+                {% include "AxiaUserBiblioBundle:Fragments:frag_entete.html.twig" %}
                 <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
                 <p>Status : {{ element|getStatus }}</p>
                 {% include "AxiaUserBiblioBundle:Fragments:frag_episode.html.twig" %}

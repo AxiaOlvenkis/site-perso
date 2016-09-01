@@ -51,9 +51,9 @@
 
 
     {% if element|get_type != 'Livre' and element|get_type != 'Film' and element|get_type != 'Jeu' %}
-        {% if element|get_type == 'BD' || element|get_type == 'Manga' || element|get_type == 'Comics' %}
+        {% if element|get_type == 'BD' or element|get_type == 'Manga' or element|get_type == 'Comics' %}
             <p>Nombre de Tome VF : {{ element.nbTomeVF }}</p>
-        {% elseif element|get_type == 'Anime' || element|get_type == 'Serie' %}
+        {% elseif element|get_type == 'Anime' or element|get_type == 'Serie' %}
             <p>Nombre d'Episodes : {{ element.nbEpisode }}</p>
         {% endif %}
         <div class="form-group">

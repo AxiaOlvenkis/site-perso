@@ -4,6 +4,8 @@ namespace Axia\UserBiblioBundle\Controller;
 
 use Axia\UserBiblioBundle\Form\BiblioType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class AffichageController extends Controller
@@ -30,11 +32,6 @@ class AffichageController extends Controller
             'Films' => $films,
             'ToReads' => $booksToRead
         ));
-    }
-
-    public function courseAction()
-    {
-        return $this->render('AxiaUserBiblioBundle:Biblio:course.html.twig');
     }
 
     public function partsAction(Request $request)
@@ -93,5 +90,73 @@ class AffichageController extends Controller
         }
 
         return $this->indexAction();
+    }
+
+    public function courseAction()
+    {
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('livre', CheckboxType::class, array('required' => false))
+            ->add('jeu', CheckboxType::class, array('required' => false))
+            ->add('manga', CheckboxType::class, array('required' => false))
+            ->add('bd', CheckboxType::class, array('required' => false))
+            ->add('comic', CheckboxType::class, array('required' => false))
+            ->add('save', SubmitType::class, array('label' => 'Afficher la liste'))
+            ->getForm();
+        return $this->render('AxiaUserBiblioBundle:Biblio:course.html.twig', array(
+            'form' => $form->createView(),
+            'listLivres' => "",
+            'listJeux' => "",
+            'listMangas' => "",
+            'listBD' => "",
+            'listComics' => ""));
+    }
+
+    public function listeCourseAction(Request $request)
+    {
+        if($request->isXmlHttpRequest())
+        {
+            $listLivres = '';
+            $listJeux = '';
+            $listMangas = '';
+            $listBD = '';
+            $listComics = '';
+
+            if($request->get('livre')=='true')
+            {
+                $listLivres = $this->get('biblio.services')->repoPerso('Livre', 'souhait');
+            }
+            if($request->get('jeu')=='true')
+            {
+                $listJeux = $this->get('biblio.services')->repoPerso('Jeu', 'souhait');
+            }
+            if($request->get('manga')=='true')
+            {
+                $listMangas = $this->get('biblio.services')->repoPerso('Manga', 'en_cours');
+            }
+            if($request->get('bd')=='true')
+            {
+                $listBD = $this->get('biblio.services')->repoPerso('BD', 'en_cours');
+            }
+            if($request->get('comic')=='true')
+            {
+                $listComics = $this->get('biblio.services')->repoPerso('Comics', 'en_cours');
+            }
+
+            echo count($listBD);
+
+            return $this->render('AxiaUserBiblioBundle:Biblio:lst_course.html.twig', array(
+                'listLivres' => $listLivres,
+                'listJeux' => $listJeux,
+                'listMangas' => $listMangas,
+                'listBD' => $listBD,
+                'listComics' => $listComics
+            ));
+        }
+        else
+        {
+            return $this->formCourseAction();
+        }
+
     }
 }

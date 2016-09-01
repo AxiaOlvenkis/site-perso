@@ -1,0 +1,27 @@
+{% if listMangas|length != 0 %}
+    <h2> {{ 'liste.mangas'|trans }} </h2>
+    {% for biblio in listMangas %}
+        {% set element = biblio|get_item %}
+        <p
+            {% if element.fini == 1 %}
+                style='color:red' class='fini'
+            {% endif %}
+        >
+            <b>{{element.titre}}</b>,
+            <i>
+                {{ 'element.ecrit'|trans }}
+                {{ element.auteurs|lst_pers }}
+                {{ 'element.editer'|trans }}
+                {{ element.editeurs|lst_editor|raw }}
+            </i>
+        </p>
+        <p style='margin-left:10%'>
+            A acheter : {{biblio.dernierVu + 1}} à {{element.nbTomeVF}}
+            {% if biblio.note < 0 %}
+                (note : Non Noté)
+            {% else %}
+                (note : {{biblio.note}}/10)
+            {% endif %}
+        </p>
+    {% endfor %}
+{% endif %}

@@ -5,6 +5,7 @@ namespace Axia\UserBiblioBundle\Services;
 use Axia\BiblioBundle\Entity\Element;
 use Axia\UserBiblioBundle\Entity\Biblio;
 use Axia\UserBiblioBundle\Twig\ElementFilter;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Generics\AdminBundle\Services\DAOServices;
 use Generics\UserBundle\Services\UserServices;
@@ -83,7 +84,7 @@ class BiblioServices implements DAOServices
         }
         elseif($filtre == 'a_acheter')
         {
-            $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findAVenir($type, $this->user);
+            $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findAAcheter($type, $this->user);
         }
         elseif($filtre == 'a_l_affiche')
         {
@@ -109,6 +110,10 @@ class BiblioServices implements DAOServices
         return $liste;
     }
 
+    /**
+     * @param array $array
+     * @return mixed
+     */
     public function array_a_voir($array)
     {
         foreach ($array as $biblio)
@@ -118,7 +123,8 @@ class BiblioServices implements DAOServices
 
             if($nb_vu >= $nb_sortie)
             {
-                unset($array[$biblio]);
+                $key = array_search($biblio, $array, true);
+                unset($array[$key]);
             }
         }
         return $array;

@@ -50,12 +50,35 @@ class EditionController extends Controller
 
             if($link == 'admin'):
                 return $this->redirect($this->generateUrl('biblio_edition'));
+            else:
+                $type = $element->getType();
+                return $this->redirect($this->generateUrl('biblio_homepage'/*, ['_fragment' => $type]*/));
             endif;
         }
 
         return $this->render('AxiaUserBiblioBundle:AdminEdition:form.html.twig', array(
             'form' => $form->createView(),
             'element' => $element
+        ));
+    }
+
+    public function deleteAction(Request $request, $type, $id)
+    {
+        $element = $this->get('biblio.services')->findOneById($id);
+        $form = $this->createFormBuilder()->getForm();
+
+        if ($form->handleRequest($request)->isValid()) {
+            $this->get('biblio.services')->delete($element);
+
+            $request->getSession()->getFlashBag()->add('info', 'L\'element a bien été supprimée.');
+
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
+        return $this->render('AxiaBiblioBundle:Element:delete.html.twig', array(
+            'element' => $element,
+            'form'   => $form->createView()
         ));
     }
 

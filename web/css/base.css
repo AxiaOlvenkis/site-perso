@@ -549,10 +549,14 @@ body {
   font-size: 20pt;
 }
 
-.bloc-index .text-title, .bloc_admin_element{
+.bloc-index .text-title, .bloc_admin_element, .biblio-admin-in{
   border-bottom: 1px solid grey;
   margin-left: -15px;
   margin-right: -15px;
+}
+
+.biblio-admin-in{
+  padding-bottom: 5px;
 }
 
 .accueil-biblio{

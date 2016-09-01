@@ -1,1 +1,93 @@
-<h1>Liste de Course</h1>
+<div class="well">
+    <form id="selectList" action="{{ path('biblio_liste_course_ajax_submit') }}">
+
+        {# Les erreurs générales du formulaire. #}
+        {{ form_errors(form) }}
+        <table style='text-align:center;width:100%;'>
+            <tr>
+                <td style='width:20%;'>
+                    <div class="form-group">
+                        {{ form_label(form.livre, "Livres", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.livre) }}
+                        <div class="">
+                            {{ form_widget(form.livre, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </td>
+                <td style='width:20%;'>
+                    <div class="form-group">
+                        {{ form_label(form.jeu, "Jeu", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.jeu) }}
+                        <div class="">
+                            {{ form_widget(form.jeu, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </td>
+                <td style='width:20%;'>
+                    <div class="form-group">
+                        {{ form_label(form.manga, "Manga", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.manga) }}
+                        <div class="">
+                            {{ form_widget(form.manga, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </td>
+                <td style='width:20%;'>
+                    <div class="form-group">
+                        {{ form_label(form.bd, "Bande dessinées", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.bd) }}
+                        <div class="">
+                            {{ form_widget(form.bd, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </td>
+                <td style='width:20%;'>
+                    <div class="form-group">
+                        {{ form_label(form.comic, "Comics", {'label_attr': {'class': 'control-label'}}) }}
+                        {{ form_errors(form.comic) }}
+                        <div class="">
+                            {{ form_widget(form.comic, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="form-group">
+            {{ form_label(form.save, "Save", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(form.livre) }}
+            <div style='text-align:center;'>
+                {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary btn-lg'}}) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        {# Fermeture de la balise <form> du formulaire HTML #}
+    </form>
+</div>
+<hr />
+<div id="laListe">
+    {{ include("AxiaUserBiblioBundle:Biblio:lst_course.html.twig") }}
+</div>
+<script>
+    $("#selectList").submit(function(){
+        var livre = document.querySelectorAll("input[name='form[livre]']");
+        var jeu = document.querySelectorAll("input[name='form[jeu]']");
+        var manga = document.querySelectorAll("input[name='form[manga]']");
+        var bd = document.querySelectorAll("input[name='form[bd]']");
+        var comic = document.querySelectorAll("input[name='form[comic]']");
+
+        var DATA = "livre=" + livre[0].checked + "&jeu=" + jeu[0].checked + "&manga=" + manga[0].checked + "&bd=" + bd[0].checked + "&comic=" + comic[0].checked;
+
+        $.ajax({
+            type: "POST",
+            url: "{{ path('biblio_liste_course_ajax_submit')}}",
+            data: DATA,
+            cache: false,
+            success: function(data){
+                console.log(data);
+                $('#laListe').html(data);
+            }
+        });
+        return false;
+    });
+</script>

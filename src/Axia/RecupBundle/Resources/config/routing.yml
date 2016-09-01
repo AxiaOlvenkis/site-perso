@@ -19,3 +19,13 @@ recup_single:
     defaults: { _controller: AxiaRecupBundle:Recup:recup_single }
     options:
         expose: true
+
+recup_update:
+    path:     /administration/recuperation/update
+    defaults: { _controller: AxiaRecupBundle:Update:index }
+
+recup_update_parts:
+    path:     /administration/update/parts
+    defaults: { _controller: AxiaRecupBundle:Update:parts }
+    options:
+        expose: true

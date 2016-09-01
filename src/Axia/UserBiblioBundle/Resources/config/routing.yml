@@ -20,6 +20,10 @@ biblio_parts_course:
     options:
         expose: true
 
+biblio_liste_course_ajax_submit:
+    path:     /liste_course_sub
+    defaults: { _controller: AxiaUserBiblioBundle:Affichage:listeCourse }
+
 biblio_parts_liste:
     path:     /parts/liste
     defaults: { _controller: AxiaUserBiblioBundle:Affichage:liste }
@@ -29,6 +33,10 @@ biblio_parts_liste:
 biblio_edition:
     path:     /administration/edition
     defaults: { _controller: AxiaUserBiblioBundle:Edition:edition }
+
+biblio_delete:
+    path:     /administration/delete
+    defaults: { _controller: AxiaUserBiblioBundle:Edition:delete }
 
 biblio_edition_parts:
     path:     /administration/edition/parts

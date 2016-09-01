@@ -5,4 +5,27 @@
     <div class="biblio">
         {{ render(controller("AxiaUserBiblioBundle:Affichage:accueil")) }}
     </div>
+    <script>
+        $(window).ready(function() {
+            var type = document.location.hash.substring(1);
+
+            if(type != '')
+            {
+                if(type == 'Accueil')
+                {
+                    affAccueil();
+                }
+                else if(type == 'Course')
+                {
+                    affCourse();
+                }
+                else
+                {
+                    affListe(type);
+                }
+                $("nav.bibliotheque li").removeClass('active');
+                $("nav.bibliotheque a#"+type).parent('li').addClass('active');
+            }
+        })
+    </script>
 {% endblock %}

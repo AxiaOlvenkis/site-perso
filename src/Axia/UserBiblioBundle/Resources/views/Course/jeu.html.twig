@@ -1,0 +1,16 @@
+{% if listJeux|length != 0 %}
+    <h2> {{ 'liste.jeux'|trans }} </h2>
+    {% for biblio in listJeux %}
+        {% set element = biblio|get_item %}
+        <p><b>{{element.titre}}</b>,
+        <i>
+            {{ 'element.editer'|trans }}
+            {{ element.editeurs|lst_editor|raw }}
+        </i>
+        {% if biblio.note < 0 %}
+            (note : Non Noté)</p>
+        {% else %}
+            (note : {{biblio.note}}/10)</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
