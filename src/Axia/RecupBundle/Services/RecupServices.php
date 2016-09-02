@@ -10,6 +10,7 @@ namespace Axia\RecupBundle\Services;
 
 use Axia\BiblioBundle\Entity\Collection;
 use Axia\BiblioBundle\Entity\Editeur;
+use Axia\BiblioBundle\Entity\Num_Collection_Film;
 use Axia\BiblioBundle\Entity\Num_Collection_Livre;
 use Axia\BiblioBundle\Entity\Personne;
 use Axia\BiblioBundle\Entity\Tag;
@@ -201,7 +202,6 @@ class RecupServices
         }
         elseif(!$editeur->getTypes()->contains($type))
         {
-            var_dump('poney');
             $editeur->addType($type);
         }
         $element->addEditeur($editeur);
