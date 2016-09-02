@@ -1,7 +1,7 @@
 {% if erreur != '' %}
     {{ erreur }}
 {% else %}
-    <button class="btn btn-primary" id="add_all">Ajouter toute la liste</button>
+    <button class="btn btn-primary" id="add_all">Mettre à jour toute la liste</button>
     <table class="table table-responsive table-bordered">
         <tr>
             <th>Titre</th>
@@ -19,7 +19,7 @@
                     <td></td>
                 {% endif %}
                 <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
-                <td><button class="btn btn-primary add_element" id="{{ element.string_i_d }}">Ajouter l'Element</button></td>
+                <td><button class="btn btn-primary add_element" id="{{ element.string_i_d }}">Mettre à Jour l'Element</button></td>
             </tr>
         {% endfor %}
     </table>
@@ -67,15 +67,15 @@
     function save_all(type)
     {
         var DATA = "type=" + type;$.ajax({
-            type: "POST",
-            url: Routing.generate('recup_all'),
-            data: DATA,
-            cache: false,
-            success: function (data) {
-                var btn = $(".add_element");
-                btn.addClass('disabled');
-            },
-        });
+        type: "POST",
+        url: Routing.generate('recup_all'),
+        data: DATA,
+        cache: false,
+        success: function (data) {
+            var btn = $(".add_element");
+            btn.addClass('disabled');
+        },
+    });
         return false;
     }
 </script>

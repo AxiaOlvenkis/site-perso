@@ -10,16 +10,21 @@ namespace Axia\RecupBundle\Services;
 
 use Axia\BiblioBundle\Entity\Collection;
 use Axia\BiblioBundle\Entity\Editeur;
+use Axia\BiblioBundle\Entity\Element;
+use Axia\BiblioBundle\Entity\Num_Collection_Film;
 use Axia\BiblioBundle\Entity\Num_Collection_Livre;
 use Axia\BiblioBundle\Entity\Personne;
 use Axia\BiblioBundle\Entity\Tag;
 use Axia\BiblioBundle\Entity\Type;
 use Axia\BiblioBundle\Services\EditeurServices;
+use Axia\BiblioBundle\Services\ElementServices;
+use Axia\BiblioBundle\Services\TypeServices;
 use Axia\UserBiblioBundle\Entity\Biblio;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Generics\UserBundle\Entity\User;
 
-class RecupServices
+class UpdateServices
 {
     /**
      * @var EntityManager em
@@ -36,15 +41,16 @@ class RecupServices
     /**
      * RecupServices constructor.
      * @param $entityManager
-     * @param $elementService
+     * @param ElementServices $elementService
      * @param $biblioService
      * @param $tagService
      * @param $personneService
      * @param EditeurServices $editeurService
      * @param $collectionService
+     * @param TypeServices $typeService
      */
     public function __construct($entityManager, $elementService, $biblioService, $tagService,
-                                $personneService, $editeurService, $collectionService)
+                                $personneService, $editeurService, $collectionService, $typeService)
     {
         $this->em = $entityManager;
         $this->elementService = $elementService;
@@ -53,17 +59,79 @@ class RecupServices
         $this->personneService = $personneService;
         $this->editeurService = $editeurService;
         $this->collectionService = $collectionService;
+        $this->typeService = $typeService;
+    }
+
+    public function recup_update($type)
+    {
+        $liste = array();
+        $liste_element = $this->elementService->findFilter($type);
+
+        foreach ($liste_element as $element)
+        {
+            $api_element = '';
+            try{
+                $api_element = json_decode(file_get_contents("http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID()), true);
+            }
+            catch(\Exception $e){
+                $erreur = 'Elements non trouvés';
+            }
+
+            if(isset($api_element['date_edit']))
+            {
+                $date = new \DateTime($api_element['date_edit']);
+                if($element->getDateEdit() <= $date)
+                {
+                    $liste[] = $element;
+                }
+            }
+
+        }
+        return $liste;
     }
 
     /**
-     * @param Type $type
-     * @param array $recup
-     * @param User $user
+     * @param Element $element
      */
-    public function create($type, $recup, $user)
+    public function update_solo($element)
     {
-        $str_type = "Axia\\BiblioBundle\\Entity\\".$type->getLibelle();
-        $element = new $str_type();
+        $api_element = '';
+        $type = $element->getType();
+        $url = "http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID();
+        try{
+            $api_element = json_decode(file_get_contents($url), true);
+        }
+        catch(\Exception $e){
+            $erreur = 'Elements non trouvés';
+        }
+
+        if(isset($api_element['date_edit']))
+        {
+            $date = new \DateTime($api_element['date_edit']);
+            if($element->getDateEdit() <= $date)
+            {
+                $this->save_element($element, $api_element);
+            }
+        }
+    }
+
+    public function update_all($type)
+    {
+        $liste_element = $this->elementService->findFilter($type);
+        foreach ($liste_element as $element)
+        {
+            $this->update_solo($element);
+        }
+    }
+
+    /**
+     * @param Element $element
+     * @param array $recup
+     */
+    public function save_element($element, $recup)
+    {
+        $lib_type = $element->getType();
+        $type = $this->typeService->findOne(array('libelle' => $lib_type));
         if(isset($recup['titre'])):
             $element->setTitre($recup['titre']);
         else:
@@ -142,14 +210,7 @@ class RecupServices
             }
         }
 
-        $biblio = new Biblio();
-        $biblio->setUser($user);
-        $func_element = "set".$type->getLibelle();
-        $biblio->$func_element($element);
-        $biblio->setType($type->getLibelle());
-
         $this->elementService->save($element);
-        $this->biblioService->save($biblio);
     }
 
     private function save_tag($element, $libelle)
@@ -162,7 +223,10 @@ class RecupServices
             $tag = new Tag();
             $tag->setLibelle($libelle);
         }
-        $element->addTag($tag);
+        if(!$element->getTags()->contains($tag))
+        {
+            $element->addTag($tag);
+        }
 
         return $element;
     }
@@ -183,7 +247,10 @@ class RecupServices
         {
             $auteur->addType($type);
         }
-        $element->addAuteur($auteur);
+        if(!$element->getAuteurs()->contains($auteur))
+        {
+            $element->addAuteur($auteur);
+        }
 
         return $element;
     }
@@ -204,7 +271,10 @@ class RecupServices
             var_dump('poney');
             $editeur->addType($type);
         }
-        $element->addEditeur($editeur);
+        if(!$element->getEditeurs()->contains($editeur))
+        {
+            $element->addEditeur($editeur);
+        }
 
         return $element;
     }
@@ -244,5 +314,4 @@ class RecupServices
 
         return true;
     }
-
 }

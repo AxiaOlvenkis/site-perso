@@ -40,10 +40,11 @@
         var DATA = "type=" + type + "&stringID=" + id;
         $.ajax({
             type: "POST",
-            url: Routing.generate('recup_single'),
+            url: Routing.generate('update_single'),
             data: DATA,
             cache: false,
-            success: function () {
+            success: function (data) {
+                console.log(data);
                 var btn = $("#" + id);
                 btn.addClass('disabled');
             },
@@ -67,15 +68,21 @@
     function save_all(type)
     {
         var DATA = "type=" + type;$.ajax({
-            type: "POST",
-            url: Routing.generate('recup_all'),
-            data: DATA,
-            cache: false,
-            success: function (data) {
-                var btn = $(".add_element");
-                btn.addClass('disabled');
-            },
-        });
+        type: "POST",
+        url: Routing.generate('update_all'),
+        data: DATA,
+        cache: false,
+        success: function (data) {
+            console.log("SUCCESS");
+            console.log(data);
+            var btn = $(".add_element");
+            btn.addClass('disabled');
+        },
+        fail: function(data){
+            console.log("ECHEC");
+            console.log(data);
+        }
+    });
         return false;
     }
 </script>

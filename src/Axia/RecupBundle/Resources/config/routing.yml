@@ -29,3 +29,15 @@ recup_update_parts:
     defaults: { _controller: AxiaRecupBundle:Update:parts }
     options:
         expose: true
+
+update_all:
+    path:     /administration/update_all
+    defaults: { _controller: AxiaRecupBundle:Update:recup_all }
+    options:
+        expose: true
+
+update_single:
+    path:     /administration/update_single
+    defaults: { _controller: AxiaRecupBundle:Update:recup_single }
+    options:
+        expose: true
