@@ -71,7 +71,8 @@ class UpdateServices
         {
             $api_element = '';
             try{
-                $api_element = json_decode(file_get_contents("http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID()), true);
+                $url = "http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID();
+                $api_element = json_decode(file_get_contents($url), true);
             }
             catch(\Exception $e){
                 $erreur = 'Elements non trouvés';

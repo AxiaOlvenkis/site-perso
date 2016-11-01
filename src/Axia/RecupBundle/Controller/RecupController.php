@@ -28,7 +28,8 @@ class RecupController extends Controller
             endif;
 
             try{
-                $liste = json_decode(file_get_contents("http://www.lartmoukis.fr/api/elements/".$str_type.$param_date), true);
+                $url = "http://www.lartmoukis.fr/api/elements/".$str_type.$param_date;
+                $liste = json_decode(file_get_contents($url), true);
             }
             catch(\Exception $e){
                 $erreur = 'Elements non trouvés';
