@@ -65,6 +65,10 @@ class BiblioServices implements DAOServices
         {
             $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findEnCours($type, $this->user);
         }
+        elseif($filtre == 'liste_course')
+        {
+            $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findListeCourse($type, $this->user);
+        }
         elseif($filtre == 'en_cours_a_voir')
         {
             $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findEnCours($type, $this->user);
@@ -155,6 +159,9 @@ class BiblioServices implements DAOServices
         else:
             $date = $element->getDateParution()->format('Y/m/d');
             $nb_t = $this->ep_by_date($date) + 1;
+            if($nb_t > $element->getNbEpisode()):
+                $nb_t = $element->getNbEpisode();
+            endif;
         endif;
 
         return $nb_t;

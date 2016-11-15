@@ -463,4 +463,33 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findListeCourse($type = '', $user)
+    {
+        $qb = $this->createQueryBuilder('b');
+        $qb->where('1 = 1');
+        $qb->andwhere($qb->expr()->like('b.type', ':type'));
+        $qb->setParameter('type', $type);
+        $qb->andWhere('b.valide = 1');
+        $qb->andWhere('b.user = :user');
+        $qb->setParameter('user', $user);
+
+        if($type == 'Manga')
+        {
+            $qb->join('b.manga', 'e')->addSelect('e');
+            $qb->andWhere('b.dernierVu < e.nbTomeVF');
+        }
+        elseif($type == 'Comics')
+        {
+            $qb->join('b.comics', 'e')->addSelect('e');
+            $qb->andWhere('b.dernierVu < e.nbTomeVF');
+        }
+        elseif($type == 'BD')
+        {
+            $qb->join('b.bd', 'e')->addSelect('e');
+            $qb->andWhere('b.dernierVu < e.nbTomeVF');
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -36,6 +36,10 @@ update_all:
     options:
         expose: true
 
+update_all_auto:
+    path:     /administration/update/auto
+    defaults: { _controller: AxiaRecupBundle:Update:auto }
+
 update_single:
     path:     /administration/update_single
     defaults: { _controller: AxiaRecupBundle:Update:recup_single }

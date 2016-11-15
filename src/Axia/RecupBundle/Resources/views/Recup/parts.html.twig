@@ -11,7 +11,7 @@
         </tr>
         {% for element in liste %}
             <tr>
-                <td>{{ element.titre }}</td>
+                <td>{{ element.titre }} | {{ element.saison }}</td>
                 <td>{{ element.date_ajout }}</td>
                 {% if element.date_parution is defined %}
                     <td>{{ element.date_parution }}</td>
@@ -43,7 +43,8 @@
             url: Routing.generate('recup_single'),
             data: DATA,
             cache: false,
-            success: function () {
+            success: function (data) {
+                console.log(data);
                 var btn = $("#" + id);
                 btn.addClass('disabled');
             },

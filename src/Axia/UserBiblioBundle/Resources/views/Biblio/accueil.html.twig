@@ -54,6 +54,9 @@
                             {% endif %}
                         </td>
                         <td>{{ element.nbEpisode }} Episodes prévus</td>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <td><a href="{{ path('biblio_delete',{ id : anime.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>

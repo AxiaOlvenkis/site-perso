@@ -24,10 +24,8 @@
       </li>
     </ul>
     <ul class="nav navbar-nav">
-      <li {% if app.request.attributes.get('_route') == 'blog_homepage' or app.request.attributes.get('_route') == 'blog_view_article' %}
-              class="active"
-          {% endif %}>
-        <a href="">{{ 'menu.blog'|trans }}</a>
+      <li>
+        <a href="http://blog.benoit-guelin.fr/" target="_blank">{{ 'menu.blog'|trans }}</a>
       </li>
     </ul>
     <form method="post" class="navbar-form navbar-right inline-form" action="">

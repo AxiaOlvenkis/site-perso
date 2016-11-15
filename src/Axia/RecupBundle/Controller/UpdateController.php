@@ -56,4 +56,16 @@ class UpdateController extends Controller
 
         return $this->indexAction();
     }
+
+    public function autoAction()
+    {
+        $types_liste = $this->get('type.services')->findAll();
+
+        foreach($types_liste as $type)
+        {
+            $this->get('update.services')->update_all($type->getLibelle());
+        }
+
+        return new Response();
+    }
 }

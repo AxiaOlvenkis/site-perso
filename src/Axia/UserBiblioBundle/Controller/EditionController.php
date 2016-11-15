@@ -62,7 +62,7 @@ class EditionController extends Controller
         ));
     }
 
-    public function deleteAction(Request $request, $type, $id)
+    public function deleteAction(Request $request, $id)
     {
         $element = $this->get('biblio.services')->findOneById($id);
         $form = $this->createFormBuilder()->getForm();
@@ -72,12 +72,12 @@ class EditionController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'L\'element a bien été supprimée.');
 
-            return $this->redirect($this->generateUrl('admin_homepage'));
+            return $this->redirect($this->generateUrl('biblio_homepage'));
         }
 
         // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
-        return $this->render('AxiaBiblioBundle:Element:delete.html.twig', array(
-            'element' => $element,
+        return $this->render('AxiaUserBiblioBundle:AdminEdition:delete.html.twig', array(
+            'biblio' => $element,
             'form'   => $form->createView()
         ));
     }

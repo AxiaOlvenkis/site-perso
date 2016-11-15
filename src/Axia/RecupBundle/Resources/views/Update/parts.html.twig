@@ -1,4 +1,4 @@
-<button class="btn btn-primary" id="add_all">Ajouter toute la liste</button>
+<button class="btn btn-primary" id="add_all">Modifier toute la liste</button>
 <table class="table table-responsive table-bordered">
     <tr>
         <th>Titre</th>
@@ -20,7 +20,7 @@
                 <td></td>
             {% endif %}
             <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
-            <td><button class="btn btn-primary add_element" id="{{ element.stringID }}">Ajouter l'Element</button></td>
+            <td><button class="btn btn-primary add_element" id="{{ element.stringID }}">Modifier l'Element</button></td>
         </tr>
     {% endfor %}
 </table>

@@ -35,7 +35,7 @@ biblio_edition:
     defaults: { _controller: AxiaUserBiblioBundle:Edition:edition }
 
 biblio_delete:
-    path:     /administration/delete
+    path:     /administration/delete/{id}
     defaults: { _controller: AxiaUserBiblioBundle:Edition:delete }
 
 biblio_edition_parts:

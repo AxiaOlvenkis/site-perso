@@ -4,6 +4,7 @@
     {% set element = biblio|get_item %}
     <h1>{{ 'admin.delete.biblio'|trans }}</h1>
     <p>{{ 'admin.delete.confirmation'|trans }} : <b class="text-danger">{{ element.titre }}</b> ?</p>
+    <p>(il sera supprimé definitivement de votre bibliothéque)</p>
 
     <form action="{{ path('biblio_delete',{'link':'biblio', 'id':biblio.id }) }}" method="post">
         <input type="submit" value="Supprimer" class="btn btn-danger" />

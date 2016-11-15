@@ -90,8 +90,9 @@ class RecupServices
         {
             $element->setNbEpisode($recup['nb_episode']);
             $element->setFini($recup['fini']);
-            if($type == 'Serie')
+            if($type->getLibelle() == 'Serie')
             {
+                var_dump('coucou');
                 $element->setSaison($recup['saison']);
             }
         }

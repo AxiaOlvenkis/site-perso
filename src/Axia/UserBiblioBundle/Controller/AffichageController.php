@@ -132,15 +132,15 @@ class AffichageController extends Controller
             }
             if($request->get('manga')=='true')
             {
-                $listMangas = $this->get('biblio.services')->repoPerso('Manga', 'en_cours');
+                $listMangas = $this->get('biblio.services')->repoPerso('Manga', 'liste_course');
             }
             if($request->get('bd')=='true')
             {
-                $listBD = $this->get('biblio.services')->repoPerso('BD', 'en_cours');
+                $listBD = $this->get('biblio.services')->repoPerso('BD', 'liste_course');
             }
             if($request->get('comic')=='true')
             {
-                $listComics = $this->get('biblio.services')->repoPerso('Comics', 'en_cours');
+                $listComics = $this->get('biblio.services')->repoPerso('Comics', 'liste_course');
             }
 
             echo count($listBD);

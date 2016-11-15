@@ -1,4 +1,9 @@
 <p class="text-success text-capitalize text-center text-title">
-    <a href="{{ element.fiche }}" target="_blank">{{ element.titre }}</a>
+    <a href="{{ element.fiche }}" target="_blank">
+        {{ element.titre }}
+        {% if element|get_type == 'Serie' %}
+            Saison {{ element.saison }}
+        {% endif %}
+    </a>
 </p>
 {% include "AxiaUserBiblioBundle:Fragments:frag_edition.html.twig" %}
