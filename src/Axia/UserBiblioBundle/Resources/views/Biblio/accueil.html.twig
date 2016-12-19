@@ -69,7 +69,7 @@
                 {% for serie in Series %}
                     {% set element = serie|get_item %}
                     <tr class="{{ serie.id }}">
-                        <td>{{ element.titre }}</td>
+                        <td>{{ element.titre }} Saison n°{{ element.saison }}</td>
                         <td>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <button class="moinsPlus" id="{{ serie.id }}">

@@ -37,7 +37,7 @@ update_all:
         expose: true
 
 update_all_auto:
-    path:     /administration/update/auto
+    path:     /cron/update/auto
     defaults: { _controller: AxiaRecupBundle:Update:auto }
 
 update_single:
