@@ -1,10 +1,10 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_admin.html.twig" %}
 
 {% block title %}
   {{ 'page.titre.edit'|trans }} - {{ parent() }}
 {% endblock %}
 
-{% block body %}
+{% block page_content %}
   <h2>{{ 'page.titre.edit'|trans }}</h2>
   {{ include("GenericsCoreBundle:Admin:page_form.html.twig") }}
 {% endblock %}

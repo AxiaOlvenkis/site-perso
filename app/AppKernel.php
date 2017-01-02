@@ -34,6 +34,8 @@ class AppKernel extends Kernel
             new Axia\UserBiblioBundle\AxiaUserBiblioBundle(),
             new Axia\BiblioBundle\AxiaBiblioBundle(),
             new Axia\RecupBundle\AxiaRecupBundle(),
+            new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
+            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

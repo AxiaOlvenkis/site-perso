@@ -11,26 +11,33 @@ class EditionController extends Controller
 {
     public function editionAction()
     {
-        $types = $this->get('type.services')->findAll();
+        $user = $this->getUser();
+        $array = array(
+            'user' => $user
+        );
+        $liste = $this->get('biblio.services')->find($array);
         return $this->render('AxiaUserBiblioBundle:AdminEdition:index.html.twig', array(
-            'types' => $types
+            'liste' => $liste
         ));
     }
 
     public function partsAction(Request $request)
     {
         if($request->isXmlHttpRequest()) {
-            $str_type = $request->get('type');
+            $choix = $request->get('choix');
             $user = $this->getUser();
-            $liste = $this->get('biblio.services')->find(array(
-                            'type' => $str_type,
-                            'valide' => 0,
-                            'user' => $user
-            ));
+            $array = array(
+                        'user' => $user
+                    );
+
+            if($choix != 'all' ) {
+                $array['valide'] = 0;
+            }
+
+            $liste = $this->get('biblio.services')->find($array);
 
             return $this->render('AxiaUserBiblioBundle:AdminEdition:parts.html.twig', array(
-                'liste' => $liste,
-                'type' => $str_type
+                'liste' => $liste
             ));
         }
 

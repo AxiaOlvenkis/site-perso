@@ -1,27 +1,32 @@
 {% if erreur != '' %}
     {{ erreur }}
 {% else %}
-    <button class="btn btn-primary" id="add_all">Mettre à jour toute la liste</button>
-    <table class="table table-responsive table-bordered">
-        <tr>
-            <th>Titre</th>
-            <th>Date Ajout</th>
-            <th>Date Parution</th>
-            <th>Lien Vers La Fiche</th>
-        </tr>
-        {% for element in liste %}
+    <button class="btn btn-primary" id="add_all">Ajouter toute la liste</button>
+    <table class="table table-responsive table-bordered" id="recup_table">
+        <thead>
             <tr>
-                <td>{{ element.titre }} | {{ element.saison }}</td>
-                <td>{{ element.date_ajout }}</td>
-                {% if element.date_parution is defined %}
-                    <td>{{ element.date_parution }}</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-                <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
-                <td><button class="btn btn-primary add_element" id="{{ element.string_i_d }}">Mettre à Jour l'Element</button></td>
+                <th>Titre</th>
+                <th>Date Ajout</th>
+                <th>Date Parution</th>
+                <th>Lien Vers La Fiche</th>
+                <th></th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for element in liste %}
+                <tr>
+                    <td>{{ element.titre }} | {% if type == 'Serie' %}Saison {{ element.saison }}{% endif %}</td>
+                    <td>{{ element.date_ajout }}</td>
+                    {% if element.date_parution is defined %}
+                        <td>{{ element.date_parution }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
+                    <td><button class="btn btn-primary add_element" id="{{ element.string_i_d }}">Mettre à Jour l'Element</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 {% endif %}
 <script>
@@ -79,4 +84,9 @@
     });
         return false;
     }
+</script>
+<script>
+    $(document).ready(function(){
+        load_datatables('#recup_table');
+    });
 </script>

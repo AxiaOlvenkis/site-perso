@@ -16,47 +16,43 @@ class UpdateController extends Controller
         ));
     }
 
-    public function partsAction(Request $request)
-    {
-        if($request->isXmlHttpRequest()) {
-            $str_type = $request->get('type');
-            $liste = $this->get('update.services')->recup_update($str_type);
+    public function view_updateAction(){
+        $types = $this->get('type.services')->findAll();
+        $liste = array();
 
-            return $this->render('AxiaRecupBundle:Update:parts.html.twig', array(
-                'liste' => $liste,
-                'type' => $str_type
-            ));
-        }
-
-        return $this->indexAction();
+        foreach ($types as $type):
+            $items = $this->get('update.services')->recup_update($type->getLibelle());
+            $liste[$type->getLibelle()] = $items;
+        endforeach;
+        return $this->render('AxiaRecupBundle:Update:liste.html.twig', array(
+            'liste' => $liste
+        ));
     }
 
-    public function recup_allAction(Request $request)
+    public function recup_allAction()
     {
-        if($request->isXmlHttpRequest()) {
-            $type = $request->get('type');
-            $this->get('update.services')->update_all($type);
-        }
+        $types = $this->get('type.services')->findAll();
 
-        return $this->indexAction();
+        foreach ($types as $type):
+            $this->get('update.services')->update_all($type->getLibelle());
+        endforeach;
+
+        return $this->redirect($this->generateUrl('recup_update'));
     }
 
-    public function recup_singleAction(Request $request)
+    public function recup_singleAction($type, $id)
     {
-        if($request->isXmlHttpRequest()) {
-            $type = $request->get('type');
-            $code = $request->get('stringID');
-            $element = $this->get('element.services')->findOne($type, array(
-                'stringID' => $code
-            ));
-            $this->get('update.services')->update_solo($element);
-
-            return new Response();
-        }
-
-        return $this->indexAction();
+        $element = $this->get('element.services')->findOne($type, array(
+            'stringID' => $id
+        ));
+        $this->get('update.services')->update_solo($element);
+        return $this->redirect($this->generateUrl('recup_update'));
     }
 
+    /**
+     * Tache Cron
+     * @return Response
+     */
     public function autoAction()
     {
         $types_liste = $this->get('type.services')->findAll();

@@ -1,15 +1,19 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_admin.html.twig" %}
 
-{% block body %}
+{% block page_content %}
     <h1>Editions de la Bibliotheque</h1>
     <p>
-        {% for type in types %}
-            <button class="type" id="{{ type.libelle }}">{{ type.libelle }}</button>
-        {% endfor %}
+        <button class="type" id="all">Tout afficher</button>
+        <button class="type" id="unchecked">Afficher les non valider</button>
     </p>
-    <div class="parts"></div>
+    <div class="parts">
+        {% include "AxiaUserBiblioBundle:AdminEdition:parts.html.twig" %}
+    </div>
     <script>
         langue = "{{ app.request.locale }}";
     </script>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('bundles/axiauserbiblio/affichage.js') }}"></script>
 {% endblock %}

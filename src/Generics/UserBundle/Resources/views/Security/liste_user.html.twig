@@ -1,91 +1,101 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_admin.html.twig" %}
 
-{% block body %}
+{% block page_content %}
 	<h1> Utilisateurs</h1>
 
-	<table class='tab_user'>
-		<tr>
-			<th>{{ 'user.pseudo'|trans }}</th>
-			<th>User</th>
-			<th>Guest</th>
-			<th>Administrateur</th>
-		</tr>
-
-	{% for user in listUsers %}
-		{% set r_user = 0 %}
-		{% set r_guest = 0 %}
-		{% set r_admin = 0 %}
-		{% set super_admin = 0 %}
-		<tr>
-			<td>{{ user.username }}</td>
-			{% for role in user.roles %}
-				{% if role == 'ROLE_USER' %}
-					{% set r_user = 1 %}
-				{% endif %}
-				{% if role == 'ROLE_GUEST' %}
-					{% set r_guest = 1 %}
-				{% endif %}
-				{% if role == 'ROLE_ADMIN' %}
-					{% set r_admin = 1 %}
-				{% endif %}
-				{% if role == 'ROLE_SUPER_ADMIN' %}
-					{% set super_admin = 1 %}
-				{% endif %}
-			{% endfor %}
-			{% if r_user == 1 %}
-				<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_USER'}) }}" class="btn btn-danger
+	<table class='table table-bordered table-striped' id="users_table">
+		<thead>
+			<tr>
+				<th>{{ 'user.pseudo'|trans }}</th>
+				<th>User</th>
+				<th>Guest</th>
+				<th>Administrateur</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for user in listUsers %}
+			{% set r_user = 0 %}
+			{% set r_guest = 0 %}
+			{% set r_admin = 0 %}
+			{% set super_admin = 0 %}
+			<tr>
+				<td>{{ user.username }}</td>
+				{% for role in user.roles %}
+					{% if role == 'ROLE_USER' %}
+						{% set r_user = 1 %}
+					{% endif %}
+					{% if role == 'ROLE_GUEST' %}
+						{% set r_guest = 1 %}
+					{% endif %}
+					{% if role == 'ROLE_ADMIN' %}
+						{% set r_admin = 1 %}
+					{% endif %}
+					{% if role == 'ROLE_SUPER_ADMIN' %}
+						{% set super_admin = 1 %}
+					{% endif %}
+				{% endfor %}
+				{% if r_user == 1 %}
+					<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_USER'}) }}" class="btn btn-danger
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-check-square-o"></i></a></td>
-			{% else %}
-				<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_USER'}) }}" class="btn btn-info
+				{% else %}
+					<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_USER'}) }}" class="btn btn-info
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-square-o"></i></a></td>
-			{% endif %}
-			{% if r_guest == 1 %}
-				<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_GUEST'}) }}" class="btn btn-danger
+				{% endif %}
+				{% if r_guest == 1 %}
+					<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_GUEST'}) }}" class="btn btn-danger
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-check-square-o"></i></a></td>
-			{% else %}
-				<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_GUEST'}) }}" class="btn btn-info
+				{% else %}
+					<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_GUEST'}) }}" class="btn btn-info
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-square-o"></i></a></td>
-			{% endif %}
-			{% if r_admin == 1 %}
-				<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_ADMIN'}) }}" class="btn btn-danger
+				{% endif %}
+				{% if r_admin == 1 %}
+					<td><a href="{{ path('user_remove_role', {'user': user.username,'role': 'ROLE_ADMIN'}) }}" class="btn btn-danger
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-check-square-o"></i></a></td>
-			{% else %}
-				<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_ADMIN'}) }}" class="btn btn-info
+				{% else %}
+					<td><a href="{{ path('user_give_role', {'user': user.username,'role': 'ROLE_ADMIN'}) }}" class="btn btn-info
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				"><i class="fa fa-square-o"></i></a></td>
-			{% endif %}
-			{% if user.enabled == true %}
-				<td><a href="{{ path('user_desactive', {'user': user.username}) }}" class="btn btn-info
+				{% endif %}
+				{% if user.enabled == true %}
+					<td><a href="{{ path('user_desactive', {'user': user.username}) }}" class="btn btn-info
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				">Desactiver l'utilisateur</a></td>
-			{% else %}
-				<td><a href="{{ path('user_active', {'user': user.username}) }}" class="btn btn-info
+				{% else %}
+					<td><a href="{{ path('user_active', {'user': user.username}) }}" class="btn btn-info
 					{% if super_admin == 1 %}
 						disabled
 					{% endif %}
 				">Activer l'utilisateur</a></td>
-			{% endif %}
-			<td><a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger style="color:red; border: solid red 2px; border-radius:30px;"><b><i class="fa fa-times"></i></b></a></td>
-		</tr>
-	{% endfor %}
+				{% endif %}
+				<td><a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger style="color:red; border: solid red 2px; border-radius:30px;"><b><i class="fa fa-times"></i></b></a></td>
+			</tr>
+		{% endfor %}
+		</tbody>
 	</table>
+	<script>
+		$(document).ready(function(){
+			load_datatables('#users_table');
+		});
+	</script>
 {% endblock %}

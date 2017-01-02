@@ -17,7 +17,7 @@
     {% endif %}
     <hr />
     	{% if is_granted("ROLE_ADMIN") %}
-        	<li><a href="{{ path('generics_admin_homepage')}}" class="btn btn-default btn_user_link">{{ 'user.admin'|trans }}</a></li>
+        	<li><a target='_blank' href="{{ path('generics_admin_homepage')}}" class="btn btn-default btn_user_link">{{ 'user.admin'|trans }}</a></li>
         {% endif %}
         <li><a href="{{ path('fos_user_profile_show') }}" class="btn btn-default btn_user_link">{{ 'user.profil'|trans }}</a></li>
         <li><a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn_user_link">{{ 'user.deco'|trans }}</a></li>

@@ -8,6 +8,18 @@ recup_parts:
     options:
         expose: true
 
+recup_api:
+    path:     /administration/recup
+    defaults: { _controller: AxiaRecupBundle:Recup:recup }
+
+liste_api:
+    path:     /administration/liste
+    defaults: { _controller: AxiaRecupBundle:Recup:liste_to_add }
+
+liste_refuse_api:
+    path:     /administration/liste_refus
+    defaults: { _controller: AxiaRecupBundle:Recup:liste_refus }
+
 recup_all:
     path:     /administration/recup_all
     defaults: { _controller: AxiaRecupBundle:Recup:recup_all }
@@ -22,7 +34,7 @@ recup_single:
 
 recup_update:
     path:     /administration/recuperation/update
-    defaults: { _controller: AxiaRecupBundle:Update:index }
+    defaults: { _controller: AxiaRecupBundle:Update:view_update }
 
 recup_update_parts:
     path:     /administration/update/parts
@@ -41,7 +53,23 @@ update_all_auto:
     defaults: { _controller: AxiaRecupBundle:Update:auto }
 
 update_single:
-    path:     /administration/update_single
+    path:     /administration/update_single/{type}/{id}
     defaults: { _controller: AxiaRecupBundle:Update:recup_single }
     options:
         expose: true
+
+recup_refuse:
+    path:     /administration/recup/refuse/{id}
+    defaults: { _controller: AxiaRecupBundle:Recup:refuse }
+
+reverse_refuse:
+    path:     /administration/recup/reverse_refuse/{id}
+    defaults: { _controller: AxiaRecupBundle:Recup:reverse_refuse }
+
+recup_add:
+    path:     /administration/recup/add/{id}
+    defaults: { _controller: AxiaRecupBundle:Recup:add_item }
+
+recup_add_all:
+    path:     /administration/recup/add_all
+    defaults: { _controller: AxiaRecupBundle:Recup:add_all_item }

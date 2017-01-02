@@ -1,3 +1,5 @@
+parameters:
+        admin_bundle.menu_listener.class: Generics\AdminBundle\EventListener\SidebarItemListListener
 services:
     files.services:
         class:    Generics\AdminBundle\Services\FileServices
@@ -16,3 +18,8 @@ services:
 
     verif.services:
         class:    Generics\AdminBundle\Services\VerifServices
+
+    admin_bundle.menu_listener:
+        class: %admin_bundle.menu_listener.class%
+        tags:
+            - { name: kernel.event_listener, event:theme.sidebar_setup_menu, method:onSetupMenu }

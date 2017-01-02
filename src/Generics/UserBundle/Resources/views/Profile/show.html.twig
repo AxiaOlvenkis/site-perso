@@ -1,10 +1,10 @@
-{% extends "UserBundle::layout.html.twig" %}
+{% extends "GenericsUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
 	<div class="fos_user_user_show">
 	    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
 	    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-	    {% include "UserBundle:Profile:show_content.html.twig" %}
+	    {% include "GenericsUserBundle:Profile:show_content.html.twig" %}
 	</div>
 	<hr />
 	<a href="{{ path('user_profil_edit')}}" class="btn btn-danger btn_user_link"> {{ 'user.edit'|trans }}</a>

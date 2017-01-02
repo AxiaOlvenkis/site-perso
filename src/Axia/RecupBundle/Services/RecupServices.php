@@ -246,4 +246,12 @@ class RecupServices
         return true;
     }
 
+    public function in_tempo_table($id, $type){
+        $objet = $this->em->getRepository('AxiaRecupBundle:TempoEntity')->findOneBy(array('stringID' => $id, 'type' => $type));
+        if(!is_object($objet)):
+            return false;
+        endif;
+        return true;
+    }
+
 }

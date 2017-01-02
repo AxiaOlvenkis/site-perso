@@ -1,15 +1,15 @@
-{% extends "::base.html.twig" %}
+{% extends "::base_admin.html.twig" %}
 
-{% block body %}
-    <h1>Mise à Jour des Elements</h1>
+{% block page_content %}
+    <h1>Synchronisation avec Lart'Moukis - Mise à Jour</h1>
     <p>
         {% for type in types %}
             <button class="type" id="{{ type.libelle }}">{{ type.libelle }}</button>
         {% endfor %}
     </p>
     <div class="parts"></div>
-    <script>
-        langue = "{{ app.request.locale }}";
-    </script>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('bundles/axiarecup/update.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,45 @@
+{% extends "::base_admin.html.twig" %}
+
+{% block page_content %}
+    {% if erreur != '' %}
+        {{ erreur }}
+    {% else %}
+        <a href="{{ path('recup_add_all') }}" class="btn btn-primary" id="add_all">Ajouter toute la liste</a>
+        <table class="table table-responsive table-bordered" id="recup_table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Date Ajout</th>
+                <th>Date Parution</th>
+                <th>Lien Vers La Fiche</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for element in liste %}
+                <tr>
+                    <td>{{ element.titre }} | {% if element.type == 'Serie' %}Saison {{ element.saison }}{% endif %}</td>
+                    <td>{{ element.type }}</td>
+                    <td>{{ element.date_ajout|date("d/m/Y") }}</td>
+                    {% if element.date_parution is defined %}
+                        <td>{{ element.date_parution|date("d/m/Y") }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td><a href="{{ element.fiche }}" target="_blank">Vers la fiche</a></td>
+                    <td>
+                        <a href="{{ path('recup_add',{'id':element.string_i_d}) }}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                        <a href="{{ path('recup_refuse',{'id':element.string_i_d}) }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <script>
+        $(document).ready(function(){
+            load_datatables('#recup_table');
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "::base_admin.html.twig" %}
+
+{% block page_content %}
+    <h1>Synchronisation avec Lart'Moukis - Recapitulatif</h1>
+    <p>Total des élements présent dans la base de données Lart'Moukis : {{ liste['total'] }}</p>
+    <p>Total des élements deja recupéré depuis l'API : {{ liste['deja'] }}</p>
+    <p>Total des élements recupéré depuis l'API : {{ liste['recup'] }}</p>
+{% endblock %}

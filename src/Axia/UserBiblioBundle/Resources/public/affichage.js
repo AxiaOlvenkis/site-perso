@@ -10,7 +10,7 @@ $(function(){
 
 function edition(type)
 {
-    var DATA = "type=" + type;
+    var DATA = "choix=" + type;
     $.ajax({
         type: "POST",
         url: Routing.generate('biblio_edition_parts'),
