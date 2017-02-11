@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default barre-admin">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Administration</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="{{ path('axia_biblio_add_element') }}">{{ 'admin.add.element'|trans }}</a></li>
+            <li><a href="{{ path('axia_biblio_editeur_add') }}">{{ 'admin.add.editeur'|trans }}</a></li>
+            <li><a href="{{ path('axia_biblio_perso_add') }}">{{ 'admin.add.personne'|trans }}</a></li>
+            <li><a href="{{ path('axia_biblio_type_add') }}">{{ 'admin.add.type'|trans }}</a></li>
+        </ul>
+    </div>
+</nav>

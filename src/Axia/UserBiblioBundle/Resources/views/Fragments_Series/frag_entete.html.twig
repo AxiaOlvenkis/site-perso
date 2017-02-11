@@ -1,0 +1,11 @@
+<p class="text-success text-capitalize text-center text-title">
+    <a href="{{ element.serie.fiche }}" target="_blank">
+        {% if element.serie.titrevf != '' %}
+            {{ element.serie.titrevf }}
+        {% else %}
+            {{ element.serie.titre }}
+        {% endif %}
+        Saison #{{ element.numero }}
+    </a>
+</p>
+{% include "AxiaUserBiblioBundle:Fragments:frag_edition.html.twig" %}

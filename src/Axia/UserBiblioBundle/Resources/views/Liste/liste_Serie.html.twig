@@ -6,10 +6,9 @@
     <div class="row aff_elements">
         {% endif %}
         <div class="col-sm-4 bloc-index text-center">
-            {% include "AxiaUserBiblioBundle:Fragments:frag_entete.html.twig" %}
-            <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
-            <p>Status : {{ element|getStatus }}</p>
-        {% include "AxiaUserBiblioBundle:Fragments:frag_episode.html.twig" %}
+            {% include "AxiaUserBiblioBundle:Fragments_Series:frag_entete.html.twig" %}
+            <p>Status : {{ element|getStatusSaison }}</p>
+        {% include "AxiaUserBiblioBundle:Fragments_Series:frag_episode.html.twig" %}
         <p class="note">{% include "AxiaUserBiblioBundle:Fragments:frag_note.html.twig" %}</p>
             <p class="LuPossede" id="{{ biblio.id }}">
                 {% include "AxiaUserBiblioBundle:Fragments:frag_vu.html.twig" %}

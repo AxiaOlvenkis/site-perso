@@ -6,20 +6,20 @@
             <div class="row aff_elements">
         {% endif %}
             <div class="col-sm-4 bloc-index text-center">
-                {% include "AxiaUserBiblioBundle:Fragments:frag_entete.html.twig" %}
-                <p>Parution : {{ element.dateParution|date('d M Y') }} {{ element.dateParution|getSeason|raw }}</p>
-                <p>Status : {{ element|getStatus }}</p>
-                {% include "AxiaUserBiblioBundle:Fragments:frag_episode.html.twig" %}
+                {% include "AxiaUserBiblioBundle:Fragments_Animes:frag_entete.html.twig" %}
+                <p>Parution : {{ element.anime.dateParution|date('d M Y') }} {{ element.anime.dateParution|getSeason|raw }}</p>
+                <p>Status : {{ element|getStatusSaison }}</p>
+                {% include "AxiaUserBiblioBundle:Fragments_Animes:frag_episode.html.twig" %}
                 <p class="note">{% include "AxiaUserBiblioBundle:Fragments:frag_note.html.twig" %}</p>
                 <p class="LuPossede" id="{{ biblio.id }}">
                     {% include "AxiaUserBiblioBundle:Fragments:frag_vu.html.twig" %}
                      |
                     {% include "AxiaUserBiblioBundle:Fragments:frag_possede.html.twig" %}
                 </p>
-                {% if element.tags is defined and element.tags is not null and element.tags is not empty %}
+                {% if element.anime.tags is defined and element.anime.tags is not null and element.anime.tags is not empty %}
                     <hr />
                     <p>
-                        {{ element.tags|lst_tags|raw }}
+                        {{ element.anime.tags|lst_tags|raw }}
                     </p>
                 {% endif %}
             </div>

@@ -22,6 +22,7 @@ class BiblioType extends AbstractType
             ->add('vu')
             ->add('possede')
             ->add('dernierVu')
+            ->add('streaming')
         ;
     }
     

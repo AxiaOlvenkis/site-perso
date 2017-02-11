@@ -106,16 +106,23 @@ class Biblio
     private $film;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Serie")
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\SaisonSerie")
      * @ORM\JoinColumn(nullable=true)
      */
     private $serie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Anime")
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\SaisonAnime")
      * @ORM\JoinColumn(nullable=true)
      */
     private $anime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="streaming", type="string",nullable=true)
+     */
+    private $streaming;
 
     /**
      * Constructor
@@ -148,7 +155,13 @@ class Biblio
      */
     public function setNote($note)
     {
-        $this->note = $note;
+        if($note > 10):
+            $this->note = 10;
+        elseif($note < -1):
+            $this->note = -1;
+        else:
+            $this->note = $note;
+        endif;
 
         return $this;
     }
@@ -284,30 +297,6 @@ class Biblio
     }
 
     /**
-     * Set stringID
-     *
-     * @param string $stringID
-     *
-     * @return Biblio
-     */
-    public function setStringID($stringID)
-    {
-        $this->stringID = $stringID;
-
-        return $this;
-    }
-
-    /**
-     * Get stringID
-     *
-     * @return string
-     */
-    public function getStringID()
-    {
-        return $this->stringID;
-    }
-
-    /**
      * Set type
      *
      * @param string $type
@@ -329,5 +318,197 @@ class Biblio
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set livre
+     *
+     * @param \Axia\BiblioBundle\Entity\Livre $livre
+     *
+     * @return Biblio
+     */
+    public function setLivre(\Axia\BiblioBundle\Entity\Livre $livre = null)
+    {
+        $this->livre = $livre;
+
+        return $this;
+    }
+
+    /**
+     * Get livre
+     *
+     * @return \Axia\BiblioBundle\Entity\Livre
+     */
+    public function getLivre()
+    {
+        return $this->livre;
+    }
+
+    /**
+     * Set manga
+     *
+     * @param \Axia\BiblioBundle\Entity\Manga $manga
+     *
+     * @return Biblio
+     */
+    public function setManga(\Axia\BiblioBundle\Entity\Manga $manga = null)
+    {
+        $this->manga = $manga;
+
+        return $this;
+    }
+
+    /**
+     * Get manga
+     *
+     * @return \Axia\BiblioBundle\Entity\Manga
+     */
+    public function getManga()
+    {
+        return $this->manga;
+    }
+
+    /**
+     * Set comics
+     *
+     * @param \Axia\BiblioBundle\Entity\Comics $comics
+     *
+     * @return Biblio
+     */
+    public function setComics(\Axia\BiblioBundle\Entity\Comics $comics = null)
+    {
+        $this->comics = $comics;
+
+        return $this;
+    }
+
+    /**
+     * Get comics
+     *
+     * @return \Axia\BiblioBundle\Entity\Comics
+     */
+    public function getComics()
+    {
+        return $this->comics;
+    }
+
+    /**
+     * Set bd
+     *
+     * @param \Axia\BiblioBundle\Entity\BD $bd
+     *
+     * @return Biblio
+     */
+    public function setBd(\Axia\BiblioBundle\Entity\BD $bd = null)
+    {
+        $this->bd = $bd;
+
+        return $this;
+    }
+
+    /**
+     * Get bd
+     *
+     * @return \Axia\BiblioBundle\Entity\BD
+     */
+    public function getBd()
+    {
+        return $this->bd;
+    }
+
+    /**
+     * Set jeu
+     *
+     * @param \Axia\BiblioBundle\Entity\Jeu $jeu
+     *
+     * @return Biblio
+     */
+    public function setJeu(\Axia\BiblioBundle\Entity\Jeu $jeu = null)
+    {
+        $this->jeu = $jeu;
+
+        return $this;
+    }
+
+    /**
+     * Get jeu
+     *
+     * @return \Axia\BiblioBundle\Entity\Jeu
+     */
+    public function getJeu()
+    {
+        return $this->jeu;
+    }
+
+    /**
+     * Set film
+     *
+     * @param \Axia\BiblioBundle\Entity\Film $film
+     *
+     * @return Biblio
+     */
+    public function setFilm(\Axia\BiblioBundle\Entity\Film $film = null)
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    /**
+     * Get film
+     *
+     * @return \Axia\BiblioBundle\Entity\Film
+     */
+    public function getFilm()
+    {
+        return $this->film;
+    }
+
+    /**
+     * Set serie
+     *
+     * @param \Axia\BiblioBundle\Entity\SaisonSerie $serie
+     *
+     * @return Biblio
+     */
+    public function setSerie(\Axia\BiblioBundle\Entity\SaisonSerie $serie = null)
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    /**
+     * Get serie
+     *
+     * @return \Axia\BiblioBundle\Entity\SaisonSerie
+     */
+    public function getSerie()
+    {
+        return $this->serie;
+    }
+
+    /**
+     * Set anime
+     *
+     * @param \Axia\BiblioBundle\Entity\SaisonAnime $anime
+     *
+     * @return Biblio
+     */
+    public function setAnime(\Axia\BiblioBundle\Entity\SaisonAnime $anime = null)
+    {
+        $this->anime = $anime;
+
+        return $this;
+    }
+
+    /**
+     * Get anime
+     *
+     * @return \Axia\BiblioBundle\Entity\SaisonAnime
+     */
+    public function getAnime()
+    {
+        return $this->anime;
     }
 }

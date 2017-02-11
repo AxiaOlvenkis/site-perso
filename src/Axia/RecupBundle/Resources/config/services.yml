@@ -9,6 +9,7 @@ services:
             personneService: "@personne.services"
             editeurService: "@editeur.services"
             collectionService: "@collection.services"
+            saisonService: "@saison.services"
     update.services:
         class:    Axia\RecupBundle\Services\UpdateServices
         arguments:
@@ -20,3 +21,5 @@ services:
             editeurService: "@editeur.services"
             collectionService: "@collection.services"
             typeService: "@type.services"
+            apiLMDB: "@search.api.lmdb"
+            saisonService: "@saison.services"

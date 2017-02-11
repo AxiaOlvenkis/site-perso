@@ -1,0 +1,36 @@
+{% extends "::base_admin.html.twig" %}
+
+{% block page_content %}
+    <h1>Auto Update Bundle</h1>
+    <nav class="navbar navbar-default panel-admin">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Gestion</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="pan-admin pan-element"><a href="#" id="empty_key">{{ 'admin.apikey.empty'|trans }}</a></li>
+                <li class="pan-admin pan-element"><a href="#" id="not_good">{{ 'admin.apikey.notgood'|trans }}</a></li>
+                <li class="pan-admin pan-element"><a href="#" id="update">{{ 'admin.elements.maj'|trans }}</a></li>
+                <li class="pan-admin pan-element"><a href="#" id="add">{{ 'admin.elements.add'|trans }}</a></li>
+            </ul>
+        </div>
+    </nav>
+    {% for message in app.session.flashbag.get('info') %}
+        <div class="alert alert-success">
+            <p><b><i>{{ message }}</i></b></p>
+        </div>
+    {% endfor %}
+    {# On affiche tous les messages flash dont le nom est « error » #}
+    {% for message in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            <p><b><i>{{ message }}</i></b></p>
+        </div>
+    {% endfor %}
+    <div class="content-admin">
+    </div>
+<script>
+    langue = "{{ app.request.locale }}";
+</script>
+<script src="{{ asset('bundles/axiaautoupdate/panel-key-liste.js') }}"></script>
+
+{% endblock %}

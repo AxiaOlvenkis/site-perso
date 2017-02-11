@@ -17,7 +17,7 @@
         {% for key, item in liste %}
             {% for element in item %}
                 <tr>
-                    <td>{{ element.titre }} | {% if element.type == 'Serie' %}Saison {{ element.saison }}{% endif %}</td>
+                    <td>{{ element.titre }}</td>
                     <td>{{ element.type }}</td>
                     <td>{{ element.dateEdit|date("d/m/Y") }}</td>
                     {% if element.date_parution is defined %}

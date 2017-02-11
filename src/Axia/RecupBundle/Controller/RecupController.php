@@ -23,9 +23,11 @@ class RecupController extends Controller
         $deja = 0;
         $em = $this->getDoctrine()->getManager();
         foreach ($types as $type) {
-            $lst_recup = json_decode(
+            /*$lst_recup = json_decode(
                 file_get_contents("http://www.lartmoukis.fr/api/elements/".$type->getLibelle()),
-                true);
+                true);*/
+            $lst_recup = $this->get('search.api.lmdb')->search('elements','','','',$type->getLibelle());
+
             foreach($lst_recup as $json_ob):
                 $total++;
                 if(!$this->get('recup.services')->is_exist($json_ob['string_i_d'], $type->getLibelle()) && !$this->get('recup.services')->in_tempo_table($json_ob['string_i_d'], $type->getLibelle())):
@@ -63,8 +65,7 @@ class RecupController extends Controller
 
         foreach ($liste_tempo as $item):
             try{
-                $url = "http://www.lartmoukis.fr/api/element/".$item->getType().'/id/'.$item->getStringID();
-                $ob_element = json_decode(file_get_contents($url), true);
+                $ob_element = $this->get('search.api.lmdb')->search('element','','','',$item->getType(), $item->getStringID());
 
                 $liste[] = $ob_element;
             }
@@ -87,8 +88,7 @@ class RecupController extends Controller
 
         foreach ($liste_tempo as $item):
             try{
-                $url = "http://www.lartmoukis.fr/api/element/".$item->getType().'/id/'.$item->getStringID();
-                $ob_element = json_decode(file_get_contents($url), true);
+                $ob_element = $this->get('search.api.lmdb')->search('element','','','',$item->getType(), $item->getStringID());
 
                 $liste[] = $ob_element;
             }
@@ -127,9 +127,7 @@ class RecupController extends Controller
         $item = $em->getRepository('AxiaRecupBundle:TempoEntity')->findOneBy(array('stringID' => $id));
         $ob_type = $this->get('type.services')->findOne(array('libelle'=>$item->getType()));
 
-        $recup = json_decode(
-            file_get_contents("http://www.lartmoukis.fr/api/element/".$item->getType()."/id/".$id),
-            true);
+        $recup = $this->get('search.api.lmdb')->search('element','','','',$item->getType(), $item->getStringID());
         $this->get('recup.services')->create($ob_type, $recup, $user);
 
         $em->remove($item);
@@ -146,9 +144,10 @@ class RecupController extends Controller
         foreach ($liste_item as $item):
             $ob_type = $this->get('type.services')->findOne(array('libelle'=>$item->getType()));
 
-            $recup = json_decode(
+            /*$recup = json_decode(
                 file_get_contents("http://www.lartmoukis.fr/api/element/".$item->getType()."/id/".$item->getStringID()),
-                true);
+                true);*/
+            $recup = $this->get('search.api.lmdb')->search('element','','','',$item->getType(), $item->getStringID());
             $this->get('recup.services')->create($ob_type, $recup, $user);
 
             $em->remove($item);

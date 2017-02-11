@@ -1,0 +1,25 @@
+<ul class="nav nav-tabs">
+    {% for type in types %}
+        <li class=""><a data-toggle="tab" href="#{{ type }}">{{ type }}s</a></li>
+    {% endfor %}
+</ul>
+
+<div class="tab-content">
+    {% for type in types %}
+        <div id="{{ type }}" class="tab-pane fade in">
+            <hr />
+            <input type="text" id="search_add" class="form-control"/>
+            <button class="btn btn-default" id="valider" data-type="{{ type }}">Rechercher l'Element</button>
+
+            <div class="search">
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script src="{{ asset('bundles/axiaautoupdate/panel-mod.js') }}"></script>
+<script src="{{ asset('bundles/axiaautoupdate/search.js') }}"></script>
+
+<!-- Modal -->
+<div id="emptyModal" class="modal fade" role="dialog">
+</div>

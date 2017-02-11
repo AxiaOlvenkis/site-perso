@@ -1,0 +1,51 @@
+auto_update_homepage:
+    path:     /
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:index }
+
+auto_update_maj_key:
+    path:     /key/all/{type}
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:maj_key }
+
+auto_update_maj_all:
+    path:     /maj/all/{type}
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:update_all }
+
+auto_update_maj_single:
+    path:     /maj/single
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:update_single }
+    options:
+        expose: true
+
+auto_update_add_affiche:
+    path:     /add/view
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:add_affiche }
+    options:
+        expose: true
+
+auto_update_add_search:
+    path:     /add/search
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:add_search }
+    options:
+        expose: true
+
+auto_update_add_element:
+    path:     /add/{type}/{key}
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:add }
+
+empty_key_liste:
+    path:     /key/empty
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:empty_key }
+    options:
+        expose: true
+
+empty_key_single:
+    path:     /key/empty_single
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:empty_key_single }
+    options:
+        expose: true
+
+add_key:
+    path:     /key/add/{type}/{id}/{key}
+    defaults: { _controller: AxiaAutoUpdateBundle:Global:add_key, key:'' }
+    options:
+        expose: true

@@ -1,0 +1,17 @@
+services:
+    general.services:
+        class:    Axia\AutoUpdateBundle\Services\GeneralServices
+        arguments:
+            moviedbKeyAPI: "%movie_db_key_api%"
+            moviedbServices: "@search.api.moviedb"
+            tagServices: "@tag.services"
+            elementServices: "@element.services"
+    search.api.moviedb:
+        class:    Axia\AutoUpdateBundle\Services\APIMovieDBServices
+        arguments:
+            elementServices: "@element.services"
+    search.api.lmdb:
+        class:    Axia\AutoUpdateBundle\Services\LartMoukisDBServices
+        arguments:
+            generalServices: "@general.services"
+            moviedbKeyAPI: "%lartmoukis_key_api%"

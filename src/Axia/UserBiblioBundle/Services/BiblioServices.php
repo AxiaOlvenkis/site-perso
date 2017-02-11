@@ -47,6 +47,16 @@ class BiblioServices implements DAOServices
         return $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->find($id);
     }
 
+    public function findOneByTypeAndId($type, $item, $user)
+    {
+        return $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findOneBy(
+            array(
+                strtolower($type) => $item,
+                'user' => $user
+            )
+        );
+    }
+
     public function findOne($array)
     {
         $page = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findOneBy($array);
@@ -123,7 +133,8 @@ class BiblioServices implements DAOServices
         foreach ($array as $biblio)
         {
             $nb_vu = $biblio->getDernierVu();
-            $nb_sortie = $this->has_a_voir($biblio);
+            $element = $this->get_item($biblio);
+            $nb_sortie = $element->getNbEpisodes();
 
             if($nb_vu >= $nb_sortie)
             {

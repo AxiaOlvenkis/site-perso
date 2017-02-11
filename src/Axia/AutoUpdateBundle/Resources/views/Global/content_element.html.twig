@@ -1,0 +1,45 @@
+<ul class="nav nav-tabs">
+    {% for key in liste|keys %}
+        <li class=""><a data-toggle="tab" href="#{{ key }}">{{ key }}s</a></li>
+    {% endfor %}
+</ul>
+
+<div class="tab-content">
+    {% for key, lst in liste %}
+        <div id="{{ key }}" class="tab-pane fade in">
+            <h3>{{ key }}s ({{ lst|length }})</h3>
+            <p>
+                {% if choix == 'update' %}
+                    <a class='btn btn-default' href="{{ path('auto_update_maj_all',{'type':key}) }}">Mettre à Jour tout les éléments</a>
+                {% elseif choix == 'empty_key' %}
+                    <a class='btn btn-default' href="{{ path('auto_update_maj_key',{'type':key}) }}">Mettre à Jour toutes les clés</a>
+                {% endif %}
+            </p>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Nom</th>
+                </tr>
+
+                {% for element in lst %}
+                    <tr>
+                        <td id="title-{{ element.id }}">{{ element.titre }}</td>
+                        <td>
+                            {% if choix == 'update' %}
+                                <button type="button" class="btn btn-info maj-btn" data-id="{{ element.id }}">Mettre à jour l'Element</button>
+                            {% else %}
+                                <button type="button" class="btn btn-info btn-modal" data-id="{{ element.id }}" data-toggle="modal" data-target="#emptyModal">Rechercher l'élement sur l'API</button>
+                            {% endif %}
+                        </td>
+                        <td class='text-danger' id="message-{{ element.id }}"></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
+</div>
+<script src="{{ asset('bundles/axiaautoupdate/panel-mod.js') }}"></script>
+<script src="{{ asset('bundles/axiaautoupdate/panel-maj.js') }}"></script>
+
+<!-- Modal -->
+<div id="emptyModal" class="modal fade" role="dialog">
+</div>

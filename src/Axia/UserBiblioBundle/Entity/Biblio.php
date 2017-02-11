@@ -106,16 +106,23 @@ class Biblio
     private $film;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Serie")
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\SaisonSerie")
      * @ORM\JoinColumn(nullable=true)
      */
     private $serie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\Anime")
+     * @ORM\ManyToOne(targetEntity="Axia\BiblioBundle\Entity\SaisonAnime")
      * @ORM\JoinColumn(nullable=true)
      */
     private $anime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="streaming", type="string",nullable=true)
+     */
+    private $streaming;
 
     /**
      * Constructor
@@ -460,11 +467,11 @@ class Biblio
     /**
      * Set serie
      *
-     * @param \Axia\BiblioBundle\Entity\Serie $serie
+     * @param \Axia\BiblioBundle\Entity\SaisonSerie $serie
      *
      * @return Biblio
      */
-    public function setSerie(\Axia\BiblioBundle\Entity\Serie $serie = null)
+    public function setSerie(\Axia\BiblioBundle\Entity\SaisonSerie $serie = null)
     {
         $this->serie = $serie;
 
@@ -474,7 +481,7 @@ class Biblio
     /**
      * Get serie
      *
-     * @return \Axia\BiblioBundle\Entity\Serie
+     * @return \Axia\BiblioBundle\Entity\SaisonSerie
      */
     public function getSerie()
     {
@@ -484,11 +491,11 @@ class Biblio
     /**
      * Set anime
      *
-     * @param \Axia\BiblioBundle\Entity\Anime $anime
+     * @param \Axia\BiblioBundle\Entity\SaisonAnime $anime
      *
      * @return Biblio
      */
-    public function setAnime(\Axia\BiblioBundle\Entity\Anime $anime = null)
+    public function setAnime(\Axia\BiblioBundle\Entity\SaisonAnime $anime = null)
     {
         $this->anime = $anime;
 
@@ -498,10 +505,34 @@ class Biblio
     /**
      * Get anime
      *
-     * @return \Axia\BiblioBundle\Entity\Anime
+     * @return \Axia\BiblioBundle\Entity\SaisonAnime
      */
     public function getAnime()
     {
         return $this->anime;
+    }
+
+    /**
+     * Set streaming
+     *
+     * @param string $streaming
+     *
+     * @return Biblio
+     */
+    public function setStreaming($streaming)
+    {
+        $this->streaming = $streaming;
+
+        return $this;
+    }
+
+    /**
+     * Get streaming
+     *
+     * @return string
+     */
+    public function getStreaming()
+    {
+        return $this->streaming;
     }
 }

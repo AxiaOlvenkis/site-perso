@@ -32,9 +32,10 @@ class UpdateController extends Controller
     public function recup_allAction()
     {
         $types = $this->get('type.services')->findAll();
+        $user = $this->getUser();
 
         foreach ($types as $type):
-            $this->get('update.services')->update_all($type->getLibelle());
+            $this->get('update.services')->full_update($type->getLibelle(),$user);
         endforeach;
 
         return $this->redirect($this->generateUrl('recup_update'));
@@ -45,7 +46,8 @@ class UpdateController extends Controller
         $element = $this->get('element.services')->findOne($type, array(
             'stringID' => $id
         ));
-        $this->get('update.services')->update_solo($element);
+        $user = $this->getUser();
+        $this->get('update.services')->update_solo($element,$user);
         return $this->redirect($this->generateUrl('recup_update'));
     }
 

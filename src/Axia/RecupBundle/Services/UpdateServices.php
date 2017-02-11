@@ -8,6 +8,7 @@
 
 namespace Axia\RecupBundle\Services;
 
+use Axia\AutoUpdateBundle\Services\LartMoukisDBServices;
 use Axia\BiblioBundle\Entity\Collection;
 use Axia\BiblioBundle\Entity\Editeur;
 use Axia\BiblioBundle\Entity\Element;
@@ -18,8 +19,10 @@ use Axia\BiblioBundle\Entity\Tag;
 use Axia\BiblioBundle\Entity\Type;
 use Axia\BiblioBundle\Services\EditeurServices;
 use Axia\BiblioBundle\Services\ElementServices;
+use Axia\BiblioBundle\Services\SaisonServices;
 use Axia\BiblioBundle\Services\TypeServices;
 use Axia\UserBiblioBundle\Entity\Biblio;
+use Axia\UserBiblioBundle\Services\BiblioServices;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Generics\UserBundle\Entity\User;
@@ -37,20 +40,24 @@ class UpdateServices
     private $personneService;
     private $editeurService;
     private $collectionService;
+    private $lmdbServices;
+    private $saisonService;
 
     /**
      * RecupServices constructor.
      * @param $entityManager
      * @param ElementServices $elementService
-     * @param $biblioService
+     * @param BiblioServices $biblioService
      * @param $tagService
      * @param $personneService
      * @param EditeurServices $editeurService
      * @param $collectionService
      * @param TypeServices $typeService
+     * @param LartMoukisDBServices $lmdbServices
+     * @param SaisonServices $saisonService
      */
     public function __construct($entityManager, $elementService, $biblioService, $tagService,
-                                $personneService, $editeurService, $collectionService, $typeService)
+                                $personneService, $editeurService, $collectionService, $typeService, $lmdbServices, $saisonService)
     {
         $this->em = $entityManager;
         $this->elementService = $elementService;
@@ -60,6 +67,8 @@ class UpdateServices
         $this->editeurService = $editeurService;
         $this->collectionService = $collectionService;
         $this->typeService = $typeService;
+        $this->lmdbServices = $lmdbServices;
+        $this->saisonService = $saisonService;
     }
 
     public function recup_update($type)
@@ -71,8 +80,7 @@ class UpdateServices
         {
             $api_element = '';
             try{
-                $url = "http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID();
-                $api_element = json_decode(file_get_contents($url), true);
+                $api_element = $this->lmdbServices->search('element','','','',$type, $element->getStringID());
             }
             catch(\Exception $e){
                 $erreur = 'Elements non trouvés';
@@ -94,34 +102,45 @@ class UpdateServices
     /**
      * @param Element $element
      */
-    public function update_solo($element)
+    public function update_solo($element, $user, $full = false)
     {
         $api_element = '';
         $type = $element->getType();
-        $url = "http://www.lartmoukis.fr/api/element/".$type."/id/".$element->getStringID();
         try{
-            $api_element = json_decode(file_get_contents($url), true);
+            $api_element = $this->lmdbServices->search('element','','','',$type, $element->getStringID());
         }
         catch(\Exception $e){
             $erreur = 'Elements non trouvés';
         }
-
-        if(isset($api_element['date_edit']))
-        {
-            $date = new \DateTime($api_element['date_edit']);
-            if($element->getDateEdit() <= $date)
-            {
-                $this->save_element($element, $api_element);
+        
+        if($full == false) {
+            if (isset($api_element['date_edit'])) {
+                $date = new \DateTime($api_element['date_edit']);
+                if ($element->getDateEdit() <= $date) {
+                    $this->save_element($element, $api_element, $user);
+                }
             }
+        }
+        else {
+            $this->save_element($element, $api_element, $user);
         }
     }
 
-    public function update_all($type)
+    public function update_all($type, $user)
     {
         $liste_element = $this->elementService->findFilter($type);
         foreach ($liste_element as $element)
         {
-            $this->update_solo($element);
+            $this->update_solo($element, $user);
+        }
+    }
+
+    public function full_update($type, $user)
+    {
+        $liste_element = $this->elementService->findFilter($type);
+        foreach ($liste_element as $element)
+        {
+            $this->update_solo($element, $user, true);
         }
     }
 
@@ -129,7 +148,7 @@ class UpdateServices
      * @param Element $element
      * @param array $recup
      */
-    public function save_element($element, $recup)
+    public function save_element($element, $recup, $user)
     {
         $lib_type = $element->getType();
         $type = $this->typeService->findOne(array('libelle' => $lib_type));
@@ -137,6 +156,11 @@ class UpdateServices
             $element->setTitre($recup['titre']);
         else:
             $element->setTitre('');
+        endif;
+        if(isset($recup['titre_vf'])):
+            $element->setTitreVF($recup['titre_vf']);
+        else:
+            $element->setTitreVF($recup['titre']);
         endif;
         if(isset($recup['fiche'])):
             $element->setFiche($recup['fiche']);
@@ -148,20 +172,11 @@ class UpdateServices
         else:
             $element->setDateParution(null);
         endif;
-        if(isset($recup['string_i_d'])):
-            $element->setStringID($recup['string_i_d']);
-        else:
-            $element->setStringID('');
-        endif;
 
         if($type->getLibelle() == 'Anime' || $type->getLibelle() == 'Serie')
         {
             $element->setNbEpisode($recup['nb_episode']);
             $element->setFini($recup['fini']);
-            if($type->getLibelle() == 'Serie')
-            {
-                $element->setSaison($recup['saison']);
-            }
         }
         elseif($type->getLibelle() == 'Manga' || $type->getLibelle() == 'BD' || $type->getLibelle() == 'Comics')
         {
@@ -203,15 +218,60 @@ class UpdateServices
                 $element = $this->save_editeur($element, $tab_ed['nom'], $type);
             }
         }
-        if(isset($recup['collection']))
+        /*if(isset($recup['collection']))
         {
             foreach ($recup['collection'] as $tab_col)
             {
                 $element = $this->save_collection($element, $tab_col['nom'], $recup['collection']['numero'], $type);
             }
+        }*/
+
+        if(isset($recup['saisons'])){
+            foreach($recup['saisons'] as $season){
+                $element = $this->saveSaison($element, $type->getLibelle(), $season, $user);
+            }
+        }
+        $this->elementService->save($element);
+
+        if($type->getLibelle() == 'Anime' || $type->getLibelle() == 'Serie'):
+            foreach($element->getSaisons() as $saison):
+                $search = $this->biblioService->findOneByTypeAndId($type->getLibelle(), $saison, $user);
+                if($search == null):
+                    $biblio = new Biblio();
+                    $biblio->setUser($user);
+                    $func_element = "set".$type->getLibelle();
+                    $biblio->$func_element($saison);
+                    $biblio->setType($type->getLibelle());
+                    $biblio->setValide(1);
+                    $biblio->setDernierVu($recup['nb_episode']);
+                    $this->biblioService->save($biblio);
+                else:
+                    $search->setDernierVu($recup['nb_episode']);
+                    $this->biblioService->save($search);
+                endif;
+            endforeach;
+        endif;
+    }
+
+    private function saveSaison($element, $type, $array, $user){
+        $saison = $this->saisonService->findOne($type, array(
+            'numero' => $array['numero'],
+            strtolower($type) => $element
+        ));
+
+        if(!is_object($saison))
+        {
+            $constructor = "Axia\\BiblioBundle\\Entity\\".'Saison'.$type;
+            $setter = 'set'.$type;
+            $saison = new $constructor();
+            $saison->$setter($element);
+            $saison->setNumero($array['numero']);
         }
 
-        $this->elementService->save($element);
+        $saison->setNbEpisodes($array['nb_episodes']);
+        $saison->setFini($array['fini']);
+        $element->addSaison($saison);
+        return $element;
     }
 
     private function save_tag($element, $libelle)

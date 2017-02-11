@@ -1,0 +1,14 @@
+<p class="text-success text-capitalize text-center text-title">
+    <a href="{{ element.anime.fiche }}" target="_blank">
+        {% if element.anime.titrevf != '' %}
+            {{ element.anime.titrevf }}
+        {% else %}
+            {{ element.anime.titre }}
+        {% endif %}
+        Saison #{{ element.numero }}
+        {% if biblio.streaming != "" %}
+            <a target='_blank' href="{{ biblio.streaming }}" style="color:green;font-size:15pt;"><i class="fa fa-film"></i></a>
+        {% endif %}
+    </a>
+</p>
+{% include "AxiaUserBiblioBundle:Fragments:frag_edition.html.twig" %}

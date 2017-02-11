@@ -1,0 +1,12 @@
+{% for result in liste %}
+    <p>
+        Titre : {{ result['title'] }} (Sortie : {{ result['release_date'] }})
+        <a title='Voir la fiche' target='_blank' href="{{ fiche_url }}{{ result['id'] }}">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </a>
+        <a title="Ajouter l'element" href="{{ path('auto_update_add_element',{'type':type,'key':result['id']}) }}">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </a>
+    </p>
+    <hr />
+{% endfor %}

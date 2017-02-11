@@ -39,21 +39,26 @@
                 {% for anime in Animes %}
                     {% set element = anime|get_item %}
                     <tr class="{{ anime.id }}">
-                        <td>{{ element.titre }}</td>
+                        <td>
+                            {% if anime.streaming != "" %}
+                                <a target='_blank' href="{{ anime.streaming }}" style="color:green;font-size:15pt;"><i class="fa fa-film"></i></a>
+                            {% endif %}
+                            {{ element.anime.titrevf }}
+                        </td>
                         <td>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <button class="moinsPlus" id="{{ anime.id }}">
                                     <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
                                 </button>
-                                <span class="number">{{ anime.dernierVu }} </span> / {{ anime|has_a_voir }}
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodes }}
                                 <button class="moinsPlus" id="{{ anime.id }}">
                                     <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
                                 </button>
                             {% else %}
-                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisode }}
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodes }}
                             {% endif %}
                         </td>
-                        <td>{{ element.nbEpisode }} Episodes prévus</td>
+                        <td>{{ element.nbEpisodes }} Episodes prévus</td>
                         {% if is_granted("ROLE_ADMIN") %}
                             <td><a href="{{ path('biblio_delete',{ id : anime.id }) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                         {% endif %}
@@ -69,21 +74,20 @@
                 {% for serie in Series %}
                     {% set element = serie|get_item %}
                     <tr class="{{ serie.id }}">
-                        <td>{{ element.titre }} Saison n°{{ element.saison }}</td>
+                        <td>{{ element.serie.titrevf }} Saison n°{{ element.numero }}</td>
                         <td>
                             {% if is_granted("ROLE_ADMIN") %}
                                 <button class="moinsPlus" id="{{ serie.id }}">
                                     <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
                                 </button>
-                                <span class="number">{{ serie.dernierVu }} </span> / {{ serie|has_a_voir }}
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodes }}
                                 <button class="moinsPlus" id="{{ serie.id }}">
                                     <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
                                 </button>
                             {% else %}
-                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisode }}
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodes }}
                             {% endif %}
                         </td>
-                        <td>{{ element.nbEpisode }} Episodes prévus</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -94,7 +98,7 @@
         {% for film in Films %}
             {% set element = film|get_item %}
             <p>
-                {{ element.titre }}
+                {{ element.titrevf }}
             </p>
         {% endfor %}
     </div>

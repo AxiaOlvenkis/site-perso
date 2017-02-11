@@ -95,6 +95,17 @@ class ListeFilter extends \Twig_Extension
         endif;
     }
 
+    public function get_status_saison($element)
+    {
+        $fini = $element->getFini();
+
+        if($fini):
+            return 'Terminé';
+        else:
+            return "En Cours";
+        endif;
+    }
+
     /**
      * @param \DateTime $date
      * @return string
@@ -127,6 +138,7 @@ class ListeFilter extends \Twig_Extension
             new \Twig_SimpleFilter('getChecked', array($this, 'get_checked')),
             new \Twig_SimpleFilter('getNote', array($this, 'get_note')),
             new \Twig_SimpleFilter('getStatus', array($this, 'get_status')),
+            new \Twig_SimpleFilter('getStatusSaison', array($this, 'get_status_saison')),
             new \Twig_SimpleFilter('getSeason', array($this, 'get_saison')),
         );
     }

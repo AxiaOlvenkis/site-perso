@@ -59,13 +59,13 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
         if($type == 'Anime')
         {
             $qb->join('b.anime', 'e')->addSelect('e');
-            $qb->andWhere('b.dernierVu < e.nbEpisode');
+            $qb->andWhere('b.dernierVu < e.nbEpisodes');
             $qb->andWhere('b.dernierVu > 0');
         }
         elseif($type == 'Serie')
         {
             $qb->join('b.serie', 'e')->addSelect('e');
-            $qb->andWhere('b.dernierVu < e.nbEpisode');
+            $qb->andWhere('b.dernierVu < e.nbEpisodes');
             $qb->andWhere('b.dernierVu > 0');
         }
         elseif($type == 'Manga')
@@ -102,11 +102,13 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
 
         if($type == 'Anime')
         {
-            $qb->join('b.anime', 'e')->addSelect('e');
+            $qb->join('b.anime','s')->addSelect('s');
+            $qb->join('s.anime', 'e')->addSelect('e');
         }
         elseif($type == 'Serie')
         {
-            $qb->join('b.serie', 'e')->addSelect('e');
+            $qb->join('b.serie','s')->addSelect('s');
+            $qb->join('s.serie', 'e')->addSelect('e');
         }
         elseif($type == 'Manga')
         {
@@ -168,11 +170,13 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
 
         if($type == 'Anime')
         {
-            $qb->join('b.anime', 'e')->addSelect('e');
+            $qb->join('b.anime','s')->addSelect('s');
+            $qb->join('s.anime', 'e')->addSelect('e');
         }
         elseif($type == 'Serie')
         {
-            $qb->join('b.serie', 'e')->addSelect('e');
+            $qb->join('b.serie','s')->addSelect('s');
+            $qb->join('s.serie', 'e')->addSelect('e');
         }
         elseif($type == 'Manga')
         {
@@ -218,11 +222,13 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
 
         if($type == 'Anime')
         {
-            $qb->join('b.anime', 'e')->addSelect('e');
+            $qb->join('b.anime','s')->addSelect('s');
+            $qb->join('s.anime', 'e')->addSelect('e');
         }
         elseif($type == 'Serie')
         {
-            $qb->join('b.serie', 'e')->addSelect('e');
+            $qb->join('b.serie','s')->addSelect('s');
+            $qb->join('s.serie', 'e')->addSelect('e');
         }
         elseif($type == 'Manga')
         {

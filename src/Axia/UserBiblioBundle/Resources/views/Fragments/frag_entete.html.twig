@@ -1,6 +1,10 @@
 <p class="text-success text-capitalize text-center text-title">
     <a href="{{ element.fiche }}" target="_blank">
-        {{ element.titre }}
+        {% if element.titrevf != '' %}
+            {{ element.titrevf }}
+        {% else %}
+            {{ element.titre }}
+        {% endif %}
         {% if element|get_type == 'Serie' %}
             Saison {{ element.saison }}
         {% endif %}

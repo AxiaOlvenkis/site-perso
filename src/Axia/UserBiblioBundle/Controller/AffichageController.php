@@ -44,7 +44,6 @@ class AffichageController extends Controller
                 'valide' => 1,
                 'user' => $user
             ));
-
             return $this->render('AxiaUserBiblioBundle:Parts:parts_'.$str_type.'.html.twig', array(
                 'liste' => $liste,
                 'type' => $str_type

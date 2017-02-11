@@ -16,6 +16,7 @@ use Axia\BiblioBundle\Entity\Personne;
 use Axia\BiblioBundle\Entity\Tag;
 use Axia\BiblioBundle\Entity\Type;
 use Axia\BiblioBundle\Services\EditeurServices;
+use Axia\BiblioBundle\Services\SaisonServices;
 use Axia\UserBiblioBundle\Entity\Biblio;
 use Doctrine\ORM\EntityManager;
 use Generics\UserBundle\Entity\User;
@@ -33,6 +34,7 @@ class RecupServices
     private $personneService;
     private $editeurService;
     private $collectionService;
+    private $saisonService;
 
     /**
      * RecupServices constructor.
@@ -43,9 +45,10 @@ class RecupServices
      * @param $personneService
      * @param EditeurServices $editeurService
      * @param $collectionService
+     * @param SaisonServices $saisonService
      */
     public function __construct($entityManager, $elementService, $biblioService, $tagService,
-                                $personneService, $editeurService, $collectionService)
+                                $personneService, $editeurService, $collectionService, $saisonService)
     {
         $this->em = $entityManager;
         $this->elementService = $elementService;
@@ -54,6 +57,7 @@ class RecupServices
         $this->personneService = $personneService;
         $this->editeurService = $editeurService;
         $this->collectionService = $collectionService;
+        $this->saisonService = $saisonService;
     }
 
     /**
@@ -69,6 +73,11 @@ class RecupServices
             $element->setTitre($recup['titre']);
         else:
             $element->setTitre('');
+        endif;
+        if(isset($recup['titre_vf'])):
+            $element->setTitreVF($recup['titre_vf']);
+        else:
+            $element->setTitre($recup['titre']);
         endif;
         if(isset($recup['fiche'])):
             $element->setFiche($recup['fiche']);
@@ -92,7 +101,6 @@ class RecupServices
             $element->setFini($recup['fini']);
             if($type->getLibelle() == 'Serie')
             {
-                var_dump('coucou');
                 $element->setSaison($recup['saison']);
             }
         }
@@ -144,14 +152,49 @@ class RecupServices
             }
         }
 
+        if(isset($recup['saisons'])){
+            foreach($recup['saisons'] as $season){
+                $element = $this->saveSaison($element, $type->getLibelle(), $season);
+            }
+        }
+
         $biblio = new Biblio();
         $biblio->setUser($user);
         $func_element = "set".$type->getLibelle();
-        $biblio->$func_element($element);
+        if($type->getLibelle() == 'Anime' || $type->getLibelle() == 'Serie'){
+            $saisons = $element->getSaisons();
+            foreach($saisons as $saison){
+                $biblio->$func_element($saison);
+            }
+        }
+        else{
+            $biblio->$func_element($element);
+        }
         $biblio->setType($type->getLibelle());
-
+        $biblio->setValide(1);
         $this->elementService->save($element);
         $this->biblioService->save($biblio);
+    }
+
+    private function saveSaison($element, $type, $array){
+        $saison = $this->saisonService->findOne($type, array(
+            'numero' => $array['numero'],
+            strtolower($type) => $element
+        ));
+
+        if(!is_object($saison))
+        {
+            $constructor = "Axia\\BiblioBundle\\Entity\\".'Saison'.$type;
+            $setter = 'set'.$type;
+            $saison = new $constructor();
+            $saison->$setter($element);
+            $saison->setNumero($array['numero']);
+        }
+
+        $saison->setNbEpisodes($array['nb_episodes']);
+        $saison->setFini($array['fini']);
+        $element->addSaison($saison);
+        return $element;
     }
 
     private function save_tag($element, $libelle)

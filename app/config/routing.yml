@@ -6,6 +6,10 @@ biblio:
     resource: "@AxiaUserBiblioBundle/Resources/config/routing.yml"
     prefix:   /bibliotheque
 
+auto_update:
+    resource: "@AxiaUserBiblioBundle/Resources/config/routing.yml"
+    prefix:   /auto/update
+
 generics_admin:
     resource: "@GenericsAdminBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/administration

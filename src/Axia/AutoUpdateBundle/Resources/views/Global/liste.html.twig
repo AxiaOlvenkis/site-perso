@@ -1,0 +1,16 @@
+<table class="table table-responsive table-striped table-bordered">
+    <tr>
+        <th>Titre</th>
+        <th>Type</th>
+        <th>Date de Parution</th>
+        <th>Lien vers la fiche externe</th>
+    </tr>
+    {% for element in liste %}
+        <tr>
+            <td>{{ element.titre }}</td>
+            <td>{{ element|get_label_type|raw }}</td>
+            <td>{{ element.dateParution|date("d M Y") }}</td>
+            <td><a target="_blank" href="{{ element.fiche }}">Lien vers la fiche</a></td>
+        </tr>
+    {% endfor %}
+</table>

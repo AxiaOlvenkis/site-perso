@@ -1,12 +1,21 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
+    {% set biblio = element %}
     {% set element = element|get_item %}
     <div class="formulaire">
         <h1>{{ 'admin.edit.biblio'|trans }}</h1>
         <hr />
-        <h2>{{ element.titre }}</h2>
-        <p><a href="{{ element.fiche }}" target="_blank">Voir la fiche</a></p>
+        {% if biblio.type == 'Serie' %}
+            <h2>{{ element.serie.titre }}</h2>
+            <p><a href="{{ element.serie.fiche }}" target="_blank">Voir la fiche</a></p>
+        {% elseif biblio.type == 'Anime' %}
+            <h2>{{ element.anime.titre }}</h2>
+            <p><a href="{{ element.anime.fiche }}" target="_blank">Voir la fiche</a></p>
+        {% else %}
+            <h2>{{ element.titre }}</h2>
+            <p><a href="{{ element.fiche }}" target="_blank">Voir la fiche</a></p>
+        {% endif %}
         <hr />
         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
@@ -54,7 +63,7 @@
         {% if element|get_type == 'BD' or element|get_type == 'Manga' or element|get_type == 'Comics' %}
             <p>Nombre de Tome VF : {{ element.nbTomeVF }}</p>
         {% elseif element|get_type == 'Anime' or element|get_type == 'Serie' %}
-            <p>Nombre d'Episodes : {{ element.nbEpisode }}</p>
+            <p>Nombre d'Episodes : {{ element.nbEpisodes }}</p>
         {% endif %}
         <div class="form-group">
             {{ form_label(form.dernierVu, "Dernier Vu :", {'label_attr': {'class': 'control-label'}}) }}
@@ -66,6 +75,14 @@
     {% else %}
         <div style="display: none">{{ form_widget(form.dernierVu, {'attr': {'class': 'form-control'}}) }}</div>
     {% endif %}
+
+        <div class="form-group">
+            {{ form_label(form.streaming, "Lien de Streaming ?", {'label_attr': {'class': 'control-label'}}) }}
+            {{ form_errors(form.streaming) }}
+            <div class="">
+                {{ form_widget(form.streaming, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
 
         <input type="submit" class="btn btn-default">
 

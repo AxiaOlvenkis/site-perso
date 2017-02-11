@@ -9,6 +9,8 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    movie_db_key_api: b2cb47a4051fd0739e54a4f437af4e06
+    lartmoukis_key_api: 9f0d1ea6225d457e12e8d2435f5e9a08
 
 framework:
     #esi:             ~

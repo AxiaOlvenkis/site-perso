@@ -1,0 +1,7 @@
+admin:
+    apikey:
+        empty: Clé API Vide
+        notgood: Clé API Incorrect
+    elements:
+        maj: Mettre à Jour
+        add: Ajouter un élément
