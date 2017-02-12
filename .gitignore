@@ -16,3 +16,5 @@
 /web/bundles/
 .idea/
 /app/config/parameters_en_ligne.yml
+clear_cache_full.sh
+clear_cache_prod.sh
