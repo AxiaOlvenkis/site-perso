@@ -240,7 +240,7 @@ class GeneralServices
                 $e->getCode(), $e->getMessage()),
                 E_USER_ERROR);
 
-        }
+        }dump($url);
         return $result;
     }
 }

@@ -112,7 +112,10 @@ class UpdateServices
         catch(\Exception $e){
             $erreur = 'Elements non trouvés';
         }
-        dump($api_element);
+        
+        if(isset($api_element['error'])):
+            return;
+        endif;
         
         if($full == false) {
             if (isset($api_element['date_edit'])) {
@@ -247,7 +250,7 @@ class UpdateServices
                     //$biblio->setDernierVu($recup['nb_episode']);
                     $this->biblioService->save($biblio);
                 else:
-                    $search->setDernierVu($recup['nb_episode']);
+                    //$search->setDernierVu($recup['nb_episode']);
                     $this->biblioService->save($search);
                 endif;
             endforeach;
