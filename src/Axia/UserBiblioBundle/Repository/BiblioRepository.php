@@ -59,13 +59,13 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
         if($type == 'Anime')
         {
             $qb->join('b.anime', 'e')->addSelect('e');
-            $qb->andWhere('b.dernierVu < e.nbEpisodes');
+            $qb->andWhere('b.dernierVu < e.nbEpisodesSortis');
             $qb->andWhere('b.dernierVu > 0');
         }
         elseif($type == 'Serie')
         {
             $qb->join('b.serie', 'e')->addSelect('e');
-            $qb->andWhere('b.dernierVu < e.nbEpisodes');
+            $qb->andWhere('b.dernierVu < e.nbEpisodesSortis');
             $qb->andWhere('b.dernierVu > 0');
         }
         elseif($type == 'Manga')

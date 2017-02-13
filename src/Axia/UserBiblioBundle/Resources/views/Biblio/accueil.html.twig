@@ -50,12 +50,12 @@
                                 <button class="moinsPlus" id="{{ anime.id }}">
                                     <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
                                 </button>
-                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodes }}
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodesSortis }}
                                 <button class="moinsPlus" id="{{ anime.id }}">
                                     <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
                                 </button>
                             {% else %}
-                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodes }}
+                                <span class="number">{{ anime.dernierVu }} </span> / {{ element.nbEpisodesSortis }}
                             {% endif %}
                         </td>
                         <td>{{ element.nbEpisodes }} Episodes prévus</td>
@@ -80,14 +80,15 @@
                                 <button class="moinsPlus" id="{{ serie.id }}">
                                     <span class="glyphicon glyphicon-minus" id="moins" aria-hidden="true"></span>
                                 </button>
-                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodes }}
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodesSortis }}
                                 <button class="moinsPlus" id="{{ serie.id }}">
                                     <span class="glyphicon glyphicon-plus" id="plus" aria-hidden="true"></span>
                                 </button>
                             {% else %}
-                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodes }}
+                                <span class="number">{{ serie.dernierVu }} </span> / {{ element.nbEpisodesSortis }}
                             {% endif %}
                         </td>
+                        <td>{{ element.nbEpisodes }} Episodes prévus</td>
                     </tr>
                 {% endfor %}
             </table>

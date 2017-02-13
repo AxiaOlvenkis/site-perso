@@ -273,6 +273,7 @@ class UpdateServices
         }
 
         $saison->setNbEpisodes($array['nb_episodes']);
+        $saison->setNbEpisodesSortis($array['nb_episodes_sortis']);
         $saison->setFini($array['fini']);
         $element->addSaison($saison);
         return $element;
