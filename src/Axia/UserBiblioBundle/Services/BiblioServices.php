@@ -82,7 +82,7 @@ class BiblioServices implements DAOServices
         elseif($filtre == 'en_cours_a_voir')
         {
             $liste = $this->em->getRepository('AxiaUserBiblioBundle:Biblio')->findEnCours($type, $this->user);
-            $liste = $this->array_a_voir($liste);
+            //$liste = $this->array_a_voir($liste);
         }
         elseif($filtre == 'saison')
         {
