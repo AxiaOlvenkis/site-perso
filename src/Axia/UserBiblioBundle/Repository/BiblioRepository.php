@@ -87,6 +87,7 @@ class BiblioRepository extends \Doctrine\ORM\EntityRepository
             $qb->andWhere('b.dernierVu > 0');
         }
 
+        
         return $qb->getQuery()->getResult();
     }
 

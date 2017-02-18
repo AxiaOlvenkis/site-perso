@@ -13,13 +13,16 @@ class MailServices implements DAOServices
      */
     private $em;
 
+    private $mailer;
+
     /**
      * TypeService constructor.
      * @param EntityManager $entityManager
      */
-    public function __construct($entityManager)
+    public function __construct($entityManager, $mailer)
     {
         $this->em = $entityManager;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -41,7 +44,7 @@ class MailServices implements DAOServices
             ->setTo($to)
             ->setContentType('text/html')
             ->setBody($le_corps);
-        $this->get('mailer')->send($message);
+        $this->mailer->send($message);
     }
 
     /**

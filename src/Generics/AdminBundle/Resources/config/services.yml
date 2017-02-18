@@ -15,6 +15,7 @@ services:
         class:    Generics\AdminBundle\Services\MailServices
         arguments:
             entityManager: "@doctrine.orm.entity_manager"
+            mailer: "@mailer"
 
     verif.services:
         class:    Generics\AdminBundle\Services\VerifServices
