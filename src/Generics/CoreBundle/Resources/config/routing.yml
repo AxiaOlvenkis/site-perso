@@ -2,6 +2,10 @@ core_index:
     path:     /
     defaults: { _controller: GenericsCoreBundle:Core:index}
 
+core_cron_update:
+    path:     /cron/update
+    defaults: { _controller: GenericsCoreBundle:Cron:update}
+
 contact:
     resource: "@GenericsCoreBundle/Resources/config/routes/contact.yml"
 
