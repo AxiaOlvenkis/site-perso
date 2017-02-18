@@ -18,6 +18,6 @@ class CronController extends Controller
             $this->get('update.services')->full_update($type->getLibelle(),$user);
         endforeach;
 
-        return $this->redirect($this->generateUrl('recup_update'));
+        return new Response();
     }
 }
